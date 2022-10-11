@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "title": "",
+      "points": 0,
+      "endTime": 0,
+      "endDate": 0,
+      "note": "",
+      "id": 1
+    },
+    {
+      "title": "What's up?",
+      "points": "30",
+      "endTime": 0,
+      "endDate": 0,
+      "note": "",
+      "id": 2
+    },
+    {
+      "title": "This is a task no 2",
+      "points": "10",
+      "endTime": "12:15",
+      "endDate": "2022-10-18",
+      "note": "Please do it",
+      "id": 3
+    }
+  ]
+}
