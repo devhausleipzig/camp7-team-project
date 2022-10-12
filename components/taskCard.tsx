@@ -8,8 +8,6 @@ import CheckBoxCheckedIcon from "../public/images/checkbox-checked.svg";
 
 type taskCardProps = {};
 
-
-
 export default function TaskCard({}: taskCardProps) {
   return (
     <div className="flex flex-col rounded-lg h-[29%] w-[88%] bg-white shadow-md p-1 justify-center items-center">
