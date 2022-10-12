@@ -11,10 +11,10 @@ interface Props {
 
 export function TaskFooter({ date, time }: Props) {
 	return (
-		<div>
+		<div className="flex justify-between items-center gap-12 text-[#064789]">
 			<TimeWidget time={time}></TimeWidget>
 			<DateWidget date={date}></DateWidget>
-			<StatusWidget status={false}></StatusWidget>
+			<StatusWidget status={true}></StatusWidget>
 		</div>
 	);
 }

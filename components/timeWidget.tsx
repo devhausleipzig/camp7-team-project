@@ -7,7 +7,7 @@ interface Props {
 
 export function TimeWidget({ time }: Props) {
 	return (
-		<div className="flex justify-start">
+		<div className="flex justify-start items-center">
 			<ClockIcon className="h-10 w-10 mx-2" />
 			<h6>{time}</h6>
 		</div>

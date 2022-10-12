@@ -7,7 +7,7 @@ interface Props {
 
 export function DateWidget({ date }: Props) {
 	return (
-		<div className="flex justify-start">
+		<div className="flex justify-start items-center">
 			<CalendarDaysIcon className="h-10 w-10 mx-2" />
 			<h6>{date}</h6>
 		</div>
