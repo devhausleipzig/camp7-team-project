@@ -13,6 +13,7 @@ const initialTask = {
 	endTime: format(new Date(), "HH:mm"),
 	endDate: format(new Date(), "yyyy-MM-dd"),
 	note: "",
+	status: false,
 };
 
 export default function AddTask({}: addTaskProps) {

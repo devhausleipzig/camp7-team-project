@@ -4,8 +4,29 @@ import Image from "next/image";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
 import TaskCard from "../components/taskCard";
+import { useEffect, useState } from "react";
+
+export interface Task {
+	title: string;
+	points: number;
+	endTime: string;
+	endDate: string;
+	note: string;
+	id: number;
+	status: boolean;
+}
 
 const Home: NextPage = () => {
+	const [isLoading, setIsLoading] = useState(false);
+
+	const [tasks, setTasks] = useState<Task[]>([]);
+	useEffect(() => {
+		if (!isLoading) {
+			fetch("http://localhost:3004/tasks")
+				.then((res) => res.json())
+				.then((res) => setTasks(res));
+		}
+	}, [isLoading]);
 	return (
 		<div className="h-screen">
 			<Head>
@@ -16,9 +37,15 @@ const Home: NextPage = () => {
 			<div className="flex flex-col justify-between h-full">
 				<Header />
 				<div className="flex flex-col gap-3">
-					<TaskCard></TaskCard>
-					<TaskCard></TaskCard>
-					<TaskCard></TaskCard>
+					{tasks.map((task) => (
+						<TaskCard
+							task={task}
+							key={task.id}
+							isLoading={isLoading}
+							setIsLoading={setIsLoading}
+						></TaskCard>
+					))}
+
 					<p>text: Am I Lato?</p>
 				</div>
 				<NavigationBar />
