@@ -10,6 +10,9 @@ module.exports = {
       sans: ["Lato", "sans-serif"],
     },
     extend: {
+      boxShadow: {
+        "md+": "0 15px 25px -7px rgba(0,0, 0, 0.4)",
+      },
       colors: {
         custom_darkblue: "#064789",
         custom_lightblue: "#BCD4DE",

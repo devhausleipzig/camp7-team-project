@@ -4,6 +4,7 @@ import Image from "next/image";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
 import TaskCard from "../components/taskCard";
+import Data from "../db.json";
 
 const Home: NextPage = () => {
   return (
@@ -15,9 +16,7 @@ const Home: NextPage = () => {
       </Head>
       <div className="flex flex-col justify-between h-full">
         <Header />
-        <div className="flex flex-col items-center justify-around h-4/5 pt-2 pb-2">
-          <TaskCard />
-          <TaskCard />
+        <div className="flex flex-col w-screen items-center justify-around h-4/5 pt-2 pb-2">
           <TaskCard />
         </div>
         <NavigationBar />
