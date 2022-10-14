@@ -7,7 +7,7 @@
       "endDate": "Oct 22",
       "note": "",
       "id": 1,
-      "status": false
+      "status": true
     },
     {
       "title": "What's up?",
@@ -16,7 +16,7 @@
       "endDate": "Dec 21",
       "note": "",
       "id": 2,
-      "status": false
+      "status": true
     }
   ]
 }

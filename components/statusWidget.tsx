@@ -9,38 +9,6 @@ interface Props {
 	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// export function StatusWidget({ status }: Props) {
-// 	return (
-// 		<div>
-// 			{status ? (
-// 				<CheckCircleIcon className="text-[#68B684] h-10 w-10 "></CheckCircleIcon>
-// 			) : (
-// 				<CheckCircleIcon className="text-[#BCD4DE] h-10 w-10 "></CheckCircleIcon>
-// 			)}
-// 		</div>
-// 	);
-// }
-
-// let completed = false;
-
-// export function StatusWidget({ status }: Props) {
-// 	if (status == false) {
-// 		return (
-// 			<div>
-// 				<CheckCircleIcon className="text-[#BCD4DE] h-10 w-10"></CheckCircleIcon>
-// 			</div>
-// 		);
-// 	}
-// 	return (
-// 		<div>
-// 			<CheckCircleIcon
-// 				onClick={handleClick}
-// 				className="text-[#68B684] h-10 w-10"
-// 			></CheckCircleIcon>
-// 		</div>
-// 	);
-// }
-
 export function StatusWidget({ status, id, isLoading, setIsLoading }: Props) {
 	const handleClick = async () => {
 		setIsLoading(true);
@@ -66,24 +34,3 @@ export function StatusWidget({ status, id, isLoading, setIsLoading }: Props) {
 		</button>
 	);
 }
-
-// if (status === false) {
-// 	return (
-// 		<div>
-// 			<CheckCircleIcon className="text-[#BCD4DE] h-10 w-10"></CheckCircleIcon>
-// 		</div>
-// 	);
-// }
-// return (
-// 	<div>
-// 		<CheckCircleIcon className="text-[#68B684] h-10 w-10"></CheckCircleIcon>
-// 	</div>
-// );
-
-// export function StatusWidget({ status }: Props) {
-// 	return (
-// 		<div>
-// 		<CheckCircleIcon onClick={handleClick} className="text-[#68B684] h-10 w-10 ">
-// 		</div>
-// 	);
-// }
