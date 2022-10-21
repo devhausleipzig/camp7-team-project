@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 	const [tasks, setTasks] = useState<Task[]>([]);
 	useEffect(() => {
 		if (!isLoading) {
-			fetch("http://localhost:3004/tasks")
+			fetch("http://localhost:3000/tasks")
 				.then((res) => res.json())
 				.then((res) => setTasks(res));
 		}

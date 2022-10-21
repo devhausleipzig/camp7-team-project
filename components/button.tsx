@@ -2,6 +2,8 @@ import React from "react";
 
 type CustomButtonProps = {};
 
-export default function CustomButton({}: CustomButtonProps) {
-  return <></>;
+export default function Button({}: CustomButtonProps) {
+  return (
+    
+  )
 }
