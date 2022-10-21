@@ -7,6 +7,7 @@ import ClockIcon from "../public/images/clock.svg";
 import User1Icon from "../public/images/user-1.svg";
 import User2Icon from "../public/images/user-2.svg";
 import CheckBoxCheckedIcon from "../public/images/checkbox-checked.svg";
+import { StatusWidget } from "./statusWidget";
 
 type taskCardProps = {};
 
@@ -15,13 +16,31 @@ export default function TaskCard({}: taskCardProps) {
     <>
       {Data &&
         Data.tasks.slice(0, 3).map((data) => {
+          const now = new Date();
+          const endTDate = new Date(data.endDate + " " + data.endTime);
+          const diffInMinutes = Math.trunc(
+            (endTDate.valueOf() - now.valueOf()) / 60 / 1000
+          );
+          const diffInHours = Math.trunc(diffInMinutes / 60);
+          const diffInDays = Math.trunc(diffInHours / 24);
+          let diffString = "";
+          if (diffInDays > 0) {
+            diffString = `less than ${diffInDays} days`;
+          } else if (diffInHours > 0) {
+            diffString = `less than ${diffInHours} Hours`;
+          } else if (diffInMinutes > 0) {
+            diffString = `less than ${diffInMinutes} Minutes`;
+          } else {
+            diffString = `DeadLine`;
+          }
+
           return (
             <div className="flex flex-col rounded-lg h-[29%] w-[88%] bg-white shadow-md+ p-1 justify-center items-center">
               {/* <div className="container" key={data.id}> */}
               {/* 1-first div header */}
               <div className="flex justify-between p-2 h-[30%] w-11/12 border-b-2 border-black/20">
                 {/* counter Component */}
-                <div className="text-sm opacity-70">due-time</div>
+                <div className="text-sm opacity-70">{diffString}</div>
 
                 <div className="flex text-md gap-1">
                   <div className="text-sm">{data.points}</div>
@@ -41,7 +60,8 @@ export default function TaskCard({}: taskCardProps) {
                 </div>
                 {/* && changeable checkbox */}
                 <div className="flex">
-                  <CheckBoxCheckedIcon className="w-5 h-5" />
+                  <StatusWidget status={false} />
+                  {/* <CheckBoxCheckedIcon className="w-5 h-5" /> */}
                 </div>
               </div>
               {/* 3-third div footer*/}

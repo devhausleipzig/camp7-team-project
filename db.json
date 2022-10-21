@@ -1,18 +1,10 @@
 {
   "tasks": [
     {
-      "title": "",
-      "points": 0,
-      "endTime": 0,
-      "endDate": 0,
-      "note": "",
-      "id": 1
-    },
-    {
       "title": "What's up?",
       "points": "30",
-      "endTime": 0,
-      "endDate": 0,
+      "endTime": "16:00",
+      "endDate": "2022-10-16",
       "note": "",
       "id": 2
     },
@@ -28,7 +20,7 @@
       "title": "Fold the laundary",
       "points": "20",
       "endTime": "17:30",
-      "endDate": "2022-10-12",
+      "endDate": "2022-10-16",
       "note": "Make sure to keep them in the clothes rack",
       "id": 4
     },
