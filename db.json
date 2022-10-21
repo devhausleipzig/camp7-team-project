@@ -1,6 +1,7 @@
 {
   "tasks": [
     {
+<<<<<<< HEAD
       "title": "Test",
       "points": 0,
       "endTime": "5 pm",
@@ -17,6 +18,38 @@
       "note": "",
       "id": 2,
       "status": true
+=======
+      "title": "What's up?",
+      "points": "30",
+      "endTime": "16:00",
+      "endDate": "2022-10-16",
+      "note": "",
+      "id": 2
+    },
+    {
+      "title": "This is a task no 2",
+      "points": "10",
+      "endTime": "12:15",
+      "endDate": "2022-10-18",
+      "note": "Please do it",
+      "id": 3
+    },
+    {
+      "title": "Fold the laundary",
+      "points": "20",
+      "endTime": "17:30",
+      "endDate": "2022-10-16",
+      "note": "Make sure to keep them in the clothes rack",
+      "id": 4
+    },
+    {
+      "title": "gggjg",
+      "points": "8",
+      "endTime": "16:34",
+      "endDate": "2022-10-12",
+      "note": "66777fhycdc",
+      "id": 5
+>>>>>>> dev
     }
   ]
 }

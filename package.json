@@ -13,7 +13,11 @@
 		"@emotion/react": "^11.10.4",
 		"@emotion/styled": "^11.10.4",
 		"@heroicons/react": "^2.0.11",
+<<<<<<< HEAD
 		"@mui/material": "^5.10.9",
+=======
+		"@svgr/webpack": "^6.4.0",
+>>>>>>> dev
 		"date-fns": "^2.29.3",
 		"next": "12.3.1",
 		"react": "18.2.0",

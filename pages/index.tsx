@@ -45,8 +45,6 @@ const Home: NextPage = () => {
 							setIsLoading={setIsLoading}
 						></TaskCard>
 					))}
-
-					<p>text: Am I Lato?</p>
 				</div>
 				<NavigationBar />
 			</div>
