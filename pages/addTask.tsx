@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { TaskForm } from "../components/PostTask";
+import { TaskForm } from "../components/taskForm";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
 import { Task } from "./_app";
@@ -13,7 +13,7 @@ const initialTask = {
 	endTime: format(new Date(), "HH:mm"),
 	endDate: format(new Date(), "yyyy-MM-dd"),
 	note: "",
-	status: false,
+	status: false
 };
 
 export default function AddTask({}: addTaskProps) {
@@ -32,9 +32,9 @@ export default function AddTask({}: addTaskProps) {
 			const response = await fetch("http://localhost:3004/tasks", {
 				method: "POST",
 				headers: {
-					"content-type": "application/json",
+					"content-type": "application/json"
 				},
-				body: JSON.stringify(task),
+				body: JSON.stringify(task)
 			});
 			if (!response.ok) throw new Error();
 			alert("Your task got created");
@@ -45,14 +45,18 @@ export default function AddTask({}: addTaskProps) {
 	}
 
 	return (
-		<div className="flex flex-col justify-between h-screen gap-24">
+		<div className="flex flex-col justify-between h-screen">
 			<Header />
-			<TaskForm
-				onSubmit={handleSubmit}
-				task={task}
-				updateField={updateField}
-				buttonText="Save"
-			/>
+			<div className="flex justify-center">
+				<div className="flex flex-col justify-center rounded-lg h-[430px] w-[300px] bg-white shadow-md+ p-1">
+					<TaskForm
+						onSubmit={handleSubmit}
+						task={task}
+						updateField={updateField}
+						buttonText="Save"
+					/>
+				</div>
+			</div>
 			<NavigationBar />
 		</div>
 	);

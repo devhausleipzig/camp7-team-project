@@ -5,7 +5,7 @@ interface Props {
 	time: string;
 }
 
-export function TimeWidget({ time }: Props) {
+export default function TimeWidget({ time }: Props) {
 	return (
 		<div className="flex justify-start items-center">
 			<ClockIcon className="h-10 w-10 mx-2" />

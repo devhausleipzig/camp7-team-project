@@ -14,7 +14,7 @@ interface Props {
 
 export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
 	return (
-		<div className="flex flex-col text-custom_darkblue font-bold items-center h-screen">
+		<div className="flex flex-col text-custom_darkblue font-bold items-center justify-center">
 			<form
 				onSubmit={onSubmit}
 				className="flex flex-col gap-2 max-w-4xl mx-auto"
@@ -70,7 +70,10 @@ export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
 					value={task.note}
 					onChange={(event) => updateField(event, "note")}
 				></textarea>
-				<button className="bg-slate-700 text-slate-50 p-2" type="submit">
+				<button
+					className="bg-slate-700 text-slate-50 p-2"
+					type="submit"
+				>
 					{buttonText}
 				</button>
 			</form>
