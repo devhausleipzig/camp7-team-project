@@ -37,7 +37,7 @@ export default function AddTask({}: addTaskProps) {
 		try {
 			alert("Your task got created");
 			fetch(
-				`http://localhost:3000/api/task?creatorId=ff332c30-b663-426c-8d07-fd1da4437a76`,
+				`http://localhost:3000/api/task?creatorId=48c079fd-457f-4e1f-8aa8-caa8a37dd4bf`,
 				{
 					method: methods.post,
 					body: JSON.stringify(task),

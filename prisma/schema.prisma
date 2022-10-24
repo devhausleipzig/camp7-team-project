@@ -14,7 +14,8 @@ model User {
   id        String @id @default(uuid())
   name      String
   email     String
-  Tasks     Task[]
+  imageUrl  String
+  tasks     Task[]
   assigned  Task[] @relation("assigned")
 }
 
