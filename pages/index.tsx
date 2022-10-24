@@ -25,6 +25,7 @@ const Home: NextPage = () => {
 					{!isLoading &&
 						tasks.map((task) => (
 							<TaskCard
+								type="preview"
 								task={task}
 								key={task.id}
 								isLoading={isLoading}

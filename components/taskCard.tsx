@@ -10,13 +10,17 @@ import DeadlineWidget from "./deadlineWidget";
 import { methods } from "../utils/methods";
 import { Task } from "@prisma/client";
 
+import clsx from "clsx";
+
 type taskCardProps = {
+	type: "preview" | "overview" | "extended";
 	task: Task;
 	isLoading: boolean;
 	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function TaskCard({
+	type,
 	task,
 	isLoading,
 	setIsLoading
@@ -42,7 +46,13 @@ export default function TaskCard({
 				{/* 1-first div header */}
 				<div className="flex justify-between p-2 h-[30%] w-11/12 border-b-2 border-black/20">
 					{/* counter Component */}
-					<DeadlineWidget task={task} />
+					{type == "preview" || type == "extended" ? (
+						<DeadlineWidget task={task} />
+					) : (
+						<div className="text-xl font-extrabold">
+							{task.title}
+						</div>
+					)}
 
 					<div className="flex text-md gap-1">
 						<div className="text-sm">{task.points}</div>
@@ -52,14 +62,29 @@ export default function TaskCard({
 				{/* 2-second div main */}
 				<div className="flex justify-between p-2 h-[45%] w-11/12 items-center">
 					<div className="flex h-full gap-2">
-						<div className="w-1 h-full bg-black rounded-full"></div>
+						{(type == "preview" || type == "overview") && (
+							<div className="w-1 h-full bg-black rounded-full"></div>
+						)}
 						<div className="flex-col">
 							{/* Chore Title */}
-							<div className="text-xl font-extrabold">
-								{task.title}
-							</div>
+							{type == "preview" && (
+								<div className="text-xl font-extrabold">
+									{task.title}
+								</div>
+							)}
 							{/* max. 32 characters */}
-							<div className="text-xs">{task.note}</div>
+							<div
+								className={clsx(
+									"text-xs",
+									type == "preview"
+										? "line-clamp-1"
+										: type == "overview"
+										? "line-clamp-2"
+										: ""
+								)}
+							>
+								{task.note}
+							</div>
 						</div>
 					</div>
 					<div className="flex">
