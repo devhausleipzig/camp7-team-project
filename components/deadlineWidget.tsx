@@ -15,7 +15,7 @@ export default function DeadlineWidget({ task: data }: any) {
 	} else if (diffInMinutes > 0) {
 		diffString = `less than ${diffInMinutes} minutes`;
 	} else {
-		diffString = "deadline past";
+		diffString = "deadline passed";
 	}
 
 	return (

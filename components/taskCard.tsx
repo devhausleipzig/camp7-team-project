@@ -1,5 +1,4 @@
 import React from "react";
-import { Task } from "../pages";
 import TimeWidget from "./timeWidget";
 import DateWidget from "./dateWidget";
 import StatusWidget from "./statusWidget";
@@ -8,6 +7,8 @@ import ClockIcon from "@heroicons/react/24/outline/ClockIcon";
 import User1Icon from "../public/images/user-1.svg";
 import User2Icon from "../public/images/user-2.svg";
 import DeadlineWidget from "./deadlineWidget";
+import { methods } from "../utils/methods";
+import { Task } from "@prisma/client";
 
 type taskCardProps = {
 	task: Task;
@@ -24,9 +25,20 @@ export default function TaskCard({
 
 	//
 
+	const statusClickHandler = async (event: Event) => {
+		setIsLoading(true);
+		await fetch(
+			`http://localhost:3000/task/${task.id}/completed?completed=${String(
+				!task.completed
+			)}`,
+			{ method: methods.patch }
+		).then((res) => res.json());
+		setIsLoading(false);
+	};
+
 	return (
 		<>
-			<div className="flex flex-col rounded-lg h-full bg-white shadow-md+ p-1 justify-center items-center">
+			<div className="flex flex-col rounded-lg h-full w-full bg-white shadow-md+ p-1 justify-center items-center">
 				{/* 1-first div header */}
 				<div className="flex justify-between p-2 h-[30%] w-11/12 border-b-2 border-black/20">
 					{/* counter Component */}
@@ -52,10 +64,9 @@ export default function TaskCard({
 					</div>
 					<div className="flex">
 						<StatusWidget
-							status={task.status}
-							id={task.id}
+							status={task.completed}
 							isLoading={isLoading}
-							setIsLoading={setIsLoading}
+							clickHandler={statusClickHandler}
 						/>
 					</div>
 				</div>

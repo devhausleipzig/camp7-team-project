@@ -1,46 +1,48 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import { TaskForm } from "../components/taskForm";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { TaskWithoutId, TaskForm } from "../components/taskForm";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
-import { Task } from "./_app";
 import { format } from "date-fns";
+import { methods } from "../utils/methods";
+import { Task } from "@prisma/client";
 
 type addTaskProps = {};
 
-const initialTask = {
+const initialTask: TaskWithoutId = {
 	title: "",
 	points: 0,
 	endTime: format(new Date(), "HH:mm"),
 	endDate: format(new Date(), "yyyy-MM-dd"),
 	note: "",
-	status: false
+	completed: false
 };
 
 export default function AddTask({}: addTaskProps) {
-	const [task, setTask] = useState(initialTask);
+	const [task, setTask] = useState<Task | TaskWithoutId>(initialTask);
 
 	function updateField(
 		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 		field: keyof Task
 	) {
-		setTask({ ...task, [field]: event.target.value });
+		setTask((task) => {
+			return {
+				...task,
+				[field]: event.target.value
+			};
+		});
 	}
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		try {
-			const response = await fetch("http://localhost:3004/tasks", {
-				method: "POST",
-				headers: {
-					"content-type": "application/json"
-				},
+			alert("Your task got created");
+			fetch(`http://localhost:3000/api/task`, {
+				method: methods.post,
 				body: JSON.stringify(task)
 			});
-			if (!response.ok) throw new Error();
-			alert("Your task got created");
 			setTask(initialTask);
 		} catch (err) {
-			alert("something went wrong");
+			console.log(err);
 		}
 	}
 

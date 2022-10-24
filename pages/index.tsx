@@ -4,29 +4,11 @@ import Image from "next/image";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
 import TaskCard from "../components/taskCard";
-import { useEffect, useState } from "react";
-
-export interface Task {
-	title: string;
-	points: number;
-	endTime: string;
-	endDate: string;
-	note: string;
-	id: number;
-	status: boolean;
-}
+import { useGetTasks } from "../hooks/useGetTasks";
 
 const Home: NextPage = () => {
-	const [isLoading, setIsLoading] = useState(false);
+	const { setIsLoading, isLoading, tasks, setTasks } = useGetTasks();
 
-	const [tasks, setTasks] = useState<Task[]>([]);
-	useEffect(() => {
-		if (!isLoading) {
-			fetch("http://localhost:3004/tasks")
-				.then((res) => res.json())
-				.then((res) => setTasks(res));
-		}
-	}, [isLoading]);
 	return (
 		<div className="h-screen">
 			<Head>
@@ -39,9 +21,9 @@ const Home: NextPage = () => {
 			</Head>
 			<div className="flex flex-col justify-between h-full">
 				<Header />
-				<div className="flex justify-center">
-					<div className="flex flex-col gap-3">
-						{tasks.slice(0, 3).map((task) => (
+				<div className="flex flex-col w-full px-4 justify-center gap-4">
+					{!isLoading &&
+						tasks.map((task) => (
 							<TaskCard
 								task={task}
 								key={task.id}
@@ -49,7 +31,6 @@ const Home: NextPage = () => {
 								setIsLoading={setIsLoading}
 							></TaskCard>
 						))}
-					</div>
 				</div>
 				<NavigationBar />
 			</div>

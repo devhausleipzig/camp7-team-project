@@ -1,14 +1,14 @@
-import { Task } from "../pages/_app";
+import { Task } from "@prisma/client";
 
-export type TaskWithoutID = Omit<Task, "id">;
+export type TaskWithoutId = Omit<Task, "id" | "createdAt" | "updatedAt">;
 
 interface Props {
 	onSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
-	task: TaskWithoutID;
+	task: Task | TaskWithoutId;
 	buttonText: string;
 	updateField: (
 		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-		field: keyof TaskWithoutID
+		field: keyof Task
 	) => void;
 }
 

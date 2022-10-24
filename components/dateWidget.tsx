@@ -8,8 +8,8 @@ interface Props {
 export default function DateWidget({ date }: Props) {
 	return (
 		<div className="flex justify-start items-center">
-			<CalendarDaysIcon className="h-10 w-10 mx-2" />
-			<h6>{date}</h6>
+			<CalendarDaysIcon className="h-6 w-6 mx-2" />
+			<p className="text-xs">{date}</p>
 		</div>
 	);
 }
