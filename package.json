@@ -16,13 +16,20 @@
 		"@mui/material": "^5.10.9",
 		"@prisma/client": "4.5.0",
 		"@svgr/webpack": "^6.4.0",
+		"@welcome-ui/core": "^4.4.1",
+		"@welcome-ui/emoji": "^4.2.0",
+		"@welcome-ui/emoji-picker": "^4.4.1",
+		"@xstyled/styled-components": "^3.7.0",
 		"axios": "^1.1.3",
 		"clsx": "^1.2.1",
 		"date-fns": "^2.29.3",
+		"emoji-picker-element": "^1.13.1",
+		"emoji-picker-react": "^4.4.3",
 		"next": "12.3.1",
 		"prisma": "^4.5.0",
-		"react": "18.2.0",
-		"react-dom": "18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "18.2.0",
+		"styled-components": "^5.3.6"
 	},
 	"devDependencies": {
 		"@tailwindcss/line-clamp": "^0.4.2",
