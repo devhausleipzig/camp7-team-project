@@ -43,6 +43,15 @@ type taskCardProps = {
 	task: Task;
 };
 
+// points moves down to middle row
+// members move up to middle row, switch from flex row to flex column
+// add text "Members" above members
+// should have both time and date
+// status widget moves from middle row to bottom row
+// edit button goes where points used to be on top row
+// the description has unlimited rows
+// takes up full screen height
+
 export default function TaskCard({ type, task }: taskCardProps) {
 	const [status, setStatus] = useState<boolean>(task.completed);
 	const [requestInProgess, setRequestInProgess] = useState<boolean>(false);
@@ -79,7 +88,7 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						: ""
 				)}
 			>
-				{/* 1-first div header */}
+				{/* 1st card section */}
 				<div className="flex justify-between p-2 h-[30%] w-11/12 border-b-2 border-current">
 					{/* counter Component */}
 					{type == "preview" || type == "extended" ? (
@@ -99,12 +108,14 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						</Link>
 					)}
 
-					<div className="flex text-md gap-1">
-						<div className="text-sm">{task.points}</div>
-						<CoinSelectedIcon className="w-5 h-5" />
-					</div>
+					{type != "extended" && (
+						<div className="flex text-md gap-1">
+							<div className="text-sm">{task.points}</div>
+							<CoinSelectedIcon className="w-5 h-5" />
+						</div>
+					)}
 				</div>
-				{/* 2-second div main */}
+				{/* 2nd card section */}
 				<div className="flex justify-between p-2 h-[45%] w-11/12 items-center">
 					<div className="flex h-full gap-2">
 						{(type == "preview" || type == "overview") && (
@@ -120,9 +131,9 @@ export default function TaskCard({ type, task }: taskCardProps) {
 									}}
 								>
 									<a>
-										<div className="text-xl font-extrabold">
+										<h2 className="text-xl font-extrabold">
 											{task.title}
-										</div>
+										</h2>
 									</a>
 								</Link>
 							)}
@@ -149,6 +160,22 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						/>
 					</div>
 				</div>
+				{/* 3rd card section */}
+				{type == "extended" && (
+					<div className="flex flex-col">
+						<div className="flex w-full items-end text-md gap-1 self-end">
+							<div className="text-sm">{task.points}</div>
+							<CoinSelectedIcon className="w-5 h-5" />
+						</div>
+
+						<div className="flex flex-col rounded-full border-1 border-black gap-1 self-start">
+							<h3 className="text-xl font-extrabold">Members</h3>
+							<User1Icon className="w-5 h-5" />
+							<User2Icon className="w-5 h-5" />
+						</div>
+					</div>
+				)}
+				{/* 4rd card section */}
 				<div className="flex justify-between p-2 h-[22%] w-11/12 items-end">
 					{type == "preview" ? (
 						unit == "hour" || unit == "minute" ? (
@@ -164,10 +191,12 @@ export default function TaskCard({ type, task }: taskCardProps) {
 					)}
 
 					{/* map over users assigned to task here */}
-					<div className="flex w-auto rounded-full border-1 border-black gap-1">
-						<User1Icon className="w-5 h-5" />
-						<User2Icon className="w-5 h-5" />
-					</div>
+					{type != "extended" && (
+						<div className="flex w-auto rounded-full border-1 border-black gap-1">
+							<User1Icon className="w-5 h-5" />
+							<User2Icon className="w-5 h-5" />
+						</div>
+					)}
 				</div>
 			</div>
 		</>
