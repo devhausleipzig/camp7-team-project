@@ -5,22 +5,18 @@ import { methods } from "../../../utils/methods";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
-		if (req.method == methods.post) {
-			const taskData = JSON.parse(req.body);
-			const { creatorId } = req.query;
-			const task = await prisma.task.create({
-				data: {
-					...taskData,
-					points: Number(taskData.points),
-					createdBy: {
-						connect: {
-							id: creatorId
-						}
+		if (req.method == methods.get) {
+			const tasks = await prisma.task.findMany({
+				where: {
+					completed: false,
+					endDate: {
+						lte: format(addDays(new Date(), 1), "yyyy-MM-dd")
 					}
-				}
+				},
+				take: 3,
+				orderBy: [{ endDate: "asc" }, { endTime: "asc" }]
 			});
-
-			res.status(201).json({ id: task.id });
+			res.status(200).json(tasks);
 			return;
 		}
 

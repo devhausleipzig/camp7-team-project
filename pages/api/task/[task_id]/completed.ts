@@ -6,7 +6,6 @@ import { methods } from "../../../../utils/methods";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		if (req.method == methods.patch) {
-			console.log(req.headers);
 			const { completed, task_id: taskId } = req.query;
 			console.log("query obj: ", completed, taskId);
 
@@ -24,6 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				}
 			});
 		}
+		res.status(200).end();
 	} catch (err) {
 		console.log(err);
 		res.status(500).end();
