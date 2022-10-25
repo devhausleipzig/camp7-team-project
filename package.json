@@ -15,7 +15,7 @@
 		"@heroicons/react": "^2.0.11",
 		"@mui/material": "^5.10.9",
 		"@prisma/client": "4.5.0",
-		"@svgr/webpack": "^6.4.0",
+		"@svgr/webpack": "^6.5.0",
 		"@welcome-ui/core": "^4.4.1",
 		"@welcome-ui/emoji": "^4.2.0",
 		"@welcome-ui/emoji-picker": "^4.4.1",
