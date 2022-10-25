@@ -14,8 +14,14 @@ const initialTask: TaskWithoutId = {
 	endTime: format(new Date(), "HH:mm"),
 	endDate: format(new Date(), "yyyy-MM-dd"),
 	note: "",
-	completed: false,
+	completed: false
 };
+
+/////
+///// hard-code user ID; temp solution for testing
+const creatorId = "9b3027da-0f23-4ac0-87ea-60b2ef0d9417";
+/////
+/////
 
 export default function AddTask({}: addTaskProps) {
 	const [task, setTask] = useState<Task | TaskWithoutId>(initialTask);
@@ -27,7 +33,7 @@ export default function AddTask({}: addTaskProps) {
 		setTask((task) => {
 			return {
 				...task,
-				[field]: event.target.value,
+				[field]: event.target.value
 			};
 		});
 	}
@@ -36,13 +42,10 @@ export default function AddTask({}: addTaskProps) {
 		event.preventDefault();
 		try {
 			alert("Your task got created");
-			fetch(
-				`http://localhost:3000/api/task?creatorId=48c079fd-457f-4e1f-8aa8-caa8a37dd4bf`,
-				{
-					method: methods.post,
-					body: JSON.stringify(task),
-				}
-			);
+			fetch(`http://localhost:3000/api/task?creatorId=${creatorId}`, {
+				method: methods.post,
+				body: JSON.stringify(task)
+			});
 			setTask(initialTask);
 		} catch (err) {
 			console.log(err);
