@@ -3,15 +3,15 @@ module.exports = {
 	content: [
 		"./pages/**/*.{js,ts,jsx,tsx}",
 		"./components/**/*.{js,ts,jsx,tsx}",
-		"./layout/**/*.{js,ts,jsx,tsx}"
+		"./layout/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
 		fontFamily: {
-			sans: ["Lato", "sans-serif"]
+			sans: ["Lato", "sans-serif"],
 		},
 		extend: {
 			boxShadow: {
-				"md+": "0 15px 25px -7px rgba(0,0, 0, 0.4)"
+				"md+": "0 15px 25px -7px rgba(0,0, 0, 0.4)",
 			},
 			colors: {
 				custom_darkblue: "#064789",
@@ -21,9 +21,9 @@ module.exports = {
 				custom_orange: "#F68E5F",
 				custom_red: "#F76C5E",
 				custom_darksage: "#7A9BA9",
-				custom_buttongrey: "#F3F3F3"
-			}
-		}
+				custom_buttongrey: "#F3F3F3",
+			},
+		},
 	},
-	plugins: [require("@tailwindcss/line-clamp")]
+	plugins: [require("@tailwindcss/line-clamp")],
 };

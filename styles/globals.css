@@ -4,5 +4,17 @@
 @tailwind utilities;
 
 :root {
-  background-color: lightblue;
+	background-color: lightblue;
+}
+
+.form_label {
+	@apply block font-bold;
+}
+
+.form_input {
+	@apply border-b-2 my-1 border-b-custom_darkblue mb-8 placeholder-custom_lightblue outline-custom_darksage block outline-offset-4;
+}
+
+.form_input_wrong {
+	@apply border-red-600 border-4;
 }
