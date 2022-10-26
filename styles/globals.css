@@ -16,5 +16,9 @@
 }
 
 .form_input_wrong {
-	@apply border-red-600 border-4;
+	@apply border-red-600 border-4 my-1 mb-8;
+}
+
+.form_disabled {
+	@apply bg-custom_lightblue placeholder-custom_lightblue border-0 py-1;
 }

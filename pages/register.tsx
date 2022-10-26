@@ -8,12 +8,6 @@ export default function Register() {
 				<h2 className="text-xl font-bold pt-6">Register</h2>
 				<RegisterForm />
 			</div>
-
-			<WideButton
-				label={"Register"}
-				className="bg-custom_darkblue"
-				link={"/"}
-			/>
 			<WideButton
 				label={"Log In"}
 				className="text-custom_lightblue underline underline-offset-2 h-0"

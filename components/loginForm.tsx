@@ -1,8 +1,15 @@
-import WideButton from "./WideButton";
+import { useRouter } from "next/router";
+import React, { FormEvent } from "react";
 
 export default function LoginForm() {
+	const router = useRouter();
+	function handleSubmit(event: FormEvent) {
+		event.preventDefault();
+		router.push("/");
+	}
+
 	return (
-		<form className="p-8 text-left w-screen">
+		<form className="p-8 text-left w-screen" onSubmit={handleSubmit}>
 			<label className="form_label">
 				Email
 				<input
@@ -25,6 +32,11 @@ export default function LoginForm() {
 					required
 				/>
 			</label>
+			<input
+				type="submit"
+				value="Log In"
+				className="bg-custom_darkblue w-11/12 h-10 rounded-lg text-white text-lg mb-4"
+			/>
 		</form>
 	);
 }

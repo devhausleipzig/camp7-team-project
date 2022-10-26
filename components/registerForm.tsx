@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import WideButton from "./WideButton";
+import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function RegisterForm() {
 	const [email, setEmail] = useState("");
 	const [confirmEmail, setConfirmEmail] = useState("");
 	const [emailsSame, setEmailsSame] = useState(true);
+	const [isValidEmail, setIsValidEmail] = useState(true);
+	const router = useRouter();
 
 	function emailEventHandler(event: React.ChangeEvent<HTMLInputElement>) {
 		const value = event.target.value;
@@ -26,8 +28,19 @@ export default function RegisterForm() {
 		setEmailsSame(() => equal); //sets boolean
 	}
 
+	const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+	function validEmail() {
+		setIsValidEmail(emailRegex.test(email));
+	}
+
+	function handleSubmit(event: FormEvent) {
+		event.preventDefault();
+		router.push("/");
+	}
+
 	return (
-		<form className="p-8 text-left w-screen">
+		<form className="p-8 text-left w-screen" onSubmit={handleSubmit}>
 			<label className="form_label">
 				Name
 				<input
@@ -45,9 +58,10 @@ export default function RegisterForm() {
 					type="email"
 					name="email"
 					placeholder="Please enter your email"
-					className="form_input"
+					className={`${isValidEmail ? "form_input" : "form_input_wrong"}`}
 					size={32}
 					onChange={emailEventHandler}
+					onBlur={validEmail}
 					required
 				/>
 			</label>
@@ -57,10 +71,13 @@ export default function RegisterForm() {
 					type="email"
 					name="confirmEmail"
 					placeholder="Please re-enter your email"
-					className={`${emailsSame ? "form_input" : "form_input_wrong"}`}
+					className={`${emailsSame ? "form_input" : "form_input_wrong"} ${
+						email == "" || !isValidEmail ? "form_disabled" : ""
+					}`}
 					size={32}
 					onChange={confirmEmailEventHandler}
 					onBlur={emailsSameEventHandler}
+					disabled={email == "" || !isValidEmail}
 					required
 				/>
 			</label>
@@ -75,6 +92,11 @@ export default function RegisterForm() {
 					required
 				/>
 			</label>
+			<input
+				type="submit"
+				value="Register"
+				className="bg-custom_darkblue w-11/12 h-10 rounded-lg text-white text-lg mb-4"
+			/>
 		</form>
 	);
 }

@@ -14,7 +14,6 @@ export default function Register() {
 				<h1 className="text-3xl font-bold">Almost there...</h1>
 				<LoginForm />
 			</div>
-			<WideButton label={"Log In"} className="bg-custom_darkblue" link={"/"} />
 			<WideButton
 				label={"Register"}
 				className="text-custom_lightblue underline underline-offset-2 h-0"
