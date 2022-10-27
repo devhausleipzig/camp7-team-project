@@ -7,14 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String @id @default(uuid())
+  name      String
+  email     String
+  imageUrl  String
+  tasks     Task[]
+  assigned  Task[] @relation("assigned")
+}
+
 model Task {
   id        String   @id @default(uuid()) @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  createdBy User @relation(fields: [creatorId], references: [id])
   title     String
   points    Int
   endTime   String
   endDate   String
   note      String
-  completed Boolean
+  completed    Boolean
+  assignedTo  User[] @relation("assigned")
+  creatorId   String
 }

@@ -1,16 +1,15 @@
-import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
 import TaskCard from "../components/taskCard";
-import { useGetTasks } from "../hooks/useGetTasks";
 import { useContext } from "react";
 import { authContext } from "./_app";
+import { useGetTodayTasks } from "../hooks/useGetTodayTasks";
 
-const Home: NextPage = () => {
+export default function Home() {
 	const { user } = useContext(authContext);
-	const { setIsLoading, isLoading, tasks, setTasks } = useGetTasks();
+
+	const { isLoading, tasks } = useGetTodayTasks();
 
 	return (
 		<div className="h-screen">
@@ -23,14 +22,12 @@ const Home: NextPage = () => {
 				<Header />
 				<div className="flex flex-col w-full px-4 justify-center gap-4">
 					{!isLoading &&
-						tasks.map((task) => (
-							<TaskCard
-								type="preview"
-								task={task}
-								key={task.id}
-								isLoading={isLoading}
-								setIsLoading={setIsLoading}
-							></TaskCard>
+						(tasks.length > 0 ? (
+							tasks.map((task) => (
+								<TaskCard type="preview" task={task} key={task.id}></TaskCard>
+							))
+						) : (
+							<p>No more tasks for today</p>
 						))}
 				</div>
 				{user.name}
@@ -38,6 +35,4 @@ const Home: NextPage = () => {
 			</div>
 		</div>
 	);
-};
-
-export default Home;
+}
