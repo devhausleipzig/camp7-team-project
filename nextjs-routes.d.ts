@@ -7,9 +7,9 @@ declare module "nextjs-routes" {
   export type Route =
     | { pathname: "/account"; query?: Query | undefined }
     | { pathname: "/addTask"; query?: Query | undefined }
+    | { pathname: "/api/task"; query?: Query | undefined }
     | { pathname: "/api/task/[task_id]/completed"; query: Query<{ "task_id": string }> }
     | { pathname: "/api/task/[task_id]"; query: Query<{ "task_id": string }> }
-    | { pathname: "/api/task"; query?: Query | undefined }
     | { pathname: "/avatar"; query?: Query | undefined }
     | { pathname: "/"; query?: Query | undefined }
     | { pathname: "/intro"; query?: Query | undefined }
