@@ -10,7 +10,7 @@ import User4Icon from "../public/images/user-4.svg";
 import User5Icon from "../public/images/user-5.svg";
 import Pencil from "../public/images/pencil.svg";
 import { methods } from "../utils/methods";
-import { Task } from "@prisma/client";
+import { Task, User } from "@prisma/client";
 import clsx from "clsx";
 import Link from "next/link";
 import { route } from "nextjs-routes";
@@ -44,7 +44,7 @@ export function checkDeadline(endDate: string, endTime: string) {
 
 type taskCardProps = {
   type: "preview" | "overview" | "extended";
-  task: Task;
+  task: Task & { assignedTo?: User[] };
 };
 
 // points moves down to middle row
@@ -73,7 +73,6 @@ export default function TaskCard({ type, task }: taskCardProps) {
     );
     setStatus((status) => !status);
     setRequestInProgess(false);
-    console.log(requestInProgess);
   };
 
   return (
@@ -231,11 +230,16 @@ export default function TaskCard({ type, task }: taskCardProps) {
           {/* map over users assigned to task here && max. 5 members */}
           {type != "extended" && (
             <div className="flex w-auto rounded-full border-1 border-black gap-2">
-              <User1Icon className="w-5 h-5" />
-              <User2Icon className="w-5 h-5" />
-              <User3Icon className="w-5 h-5" />
-              <User4Icon className="w-5 h-5" />
-              <User5Icon className="w-5 h-5" />
+              {task.assignedTo
+                ? task.assignedTo.map((user) => {
+                    return (
+                      <img
+                        className="w-5 h-5 rounded-full"
+                        src={user.imageUrl}
+                      ></img>
+                    );
+                  })
+                : "No members assigned"}
             </div>
           )}
         </div>
