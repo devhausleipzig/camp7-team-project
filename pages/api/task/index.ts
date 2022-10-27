@@ -5,6 +5,18 @@ import { methods } from "../../../utils/methods";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
+		if (req.method == methods.get) {
+			const tasks = await prisma.task.findMany({
+				where: {
+					completed: false
+				},
+				take: 3,
+				orderBy: [{ endDate: "asc" }, { endTime: "asc" }]
+			});
+
+			res.status(200).json(tasks);
+			return;
+		}
 		if (req.method == methods.post) {
 			const taskData = JSON.parse(req.body);
 			const { creatorId } = req.query;

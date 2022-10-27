@@ -10,7 +10,6 @@ declare module "nextjs-routes" {
     | { pathname: "/api/task/[task_id]/completed"; query: Query<{ "task_id": string }> }
     | { pathname: "/api/task/[task_id]"; query: Query<{ "task_id": string }> }
     | { pathname: "/api/task"; query?: Query | undefined }
-    | { pathname: "/api/task/today"; query?: Query | undefined }
     | { pathname: "/avatar"; query?: Query | undefined }
     | { pathname: "/"; query?: Query | undefined }
     | { pathname: "/intro"; query?: Query | undefined }
