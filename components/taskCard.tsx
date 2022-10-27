@@ -195,10 +195,19 @@ export default function TaskCard({ type, task }: taskCardProps) {
             <div className="flex flex-col rounded-full border-1 border-black gap-3 self-start">
               {/* max. 5 members */}
               <h3 className="text-xl font-extrabold">Members</h3>
-              <div className="flex gap-2">
-                <User1Icon className="w-5 h-5" />
-                <div className="text-sm">User Name</div>
-              </div>
+              {task.assignedTo
+                ? task.assignedTo.map((user) => {
+                    return (
+                      <div className="flex gap-2">
+                        <img
+                          className="w-5 h-5 rounded-full"
+                          src={user.imageUrl}
+                        ></img>
+                        <p>{user.name}</p>
+                      </div>
+                    );
+                  })
+                : "No members assigned"}
             </div>
           </div>
         )}
