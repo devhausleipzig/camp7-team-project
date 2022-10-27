@@ -1,14 +1,24 @@
-import React from "react";
-import Header from "../layout/header";
-import NavigationBar from "../layout/navigationBar";
+import WideButton from "../components/WideButton";
+import LoginImg from "../src/images/login.png";
+import LoginForm from "../components/loginForm";
 
-type rewardsProps = {};
-
-export default function Rewards({}: rewardsProps) {
-  return (
-    <div className="flex flex-col justify-between h-screen gap-24">
-      <Header />
-      <NavigationBar />
-    </div>
-  );
+export default function Register() {
+	return (
+		<div className="h-screen bg-white font-sans my-5 ml-5 rounded-lg text-center text-custom_darkblue">
+			<div className="pt-14">
+				<img
+					src={LoginImg.src}
+					alt="login image"
+					className="text-[#68B684] h-48 mx-auto"
+				/>
+				<h1 className="text-3xl font-bold">Almost there...</h1>
+				<LoginForm />
+			</div>
+			<WideButton
+				label={"Register"}
+				className="text-custom_lightblue underline underline-offset-2 h-0"
+				link={"/register"}
+			/>
+		</div>
+	);
 }

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import CheckBox from "../public/images/check-box.svg";
 
 interface Props {
   status: boolean;
@@ -14,11 +15,15 @@ export default function StatusWidget({
 }: Props) {
   return (
     <button
-      className="h-7 w-7"
+      className="h-5 w-5"
       onClick={clickHandler}
       disabled={requestInProgess}
     >
-      <CheckCircleIcon className={status ? "fill-[#68B684]" : "fill-white"} />
+      <CheckBox
+        className={
+          status ? "fill-green-700 stroke-white" : "fill-white stroke-green-700"
+        }
+      />
     </button>
   );
 }

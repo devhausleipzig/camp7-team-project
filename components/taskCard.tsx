@@ -141,7 +141,7 @@ export default function TaskCard({ type, task }: taskCardProps) {
           <div className="flex h-full gap-2">
             <div className="w-1 h-full bg-current rounded-full shrink-0"></div>
 
-            <div className="flex-col">
+            <div className="flex-col w-4/5">
               {/* Chore Title */}
               {type == "preview" && (
                 <Link

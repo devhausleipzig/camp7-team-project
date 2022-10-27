@@ -1,5 +1,5 @@
 import { Task } from "@prisma/client";
-import { Custom } from "./userPicker";
+import { UserPicker } from "./userPicker";
 
 export type TaskWithoutId = Omit<
 	Task,
@@ -33,7 +33,7 @@ export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
 					onChange={(event) => updateField(event, "title")}
 				/>
 				<label htmlFor="assignedTo">Members</label>
-				<Custom />
+				<UserPicker />
 				<label htmlFor="points">Points</label>
 				<input
 					className="border text-black border-neutral-50 border-b-custom_darkblue"
@@ -77,10 +77,7 @@ export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
 					onChange={(event) => updateField(event, "note")}
 				></textarea>
 
-				<button
-					className="bg-slate-700 text-slate-50 p-2"
-					type="submit"
-				>
+				<button className="bg-slate-700 text-slate-50 p-2" type="submit">
 					{buttonText}
 				</button>
 			</form>

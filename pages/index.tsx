@@ -2,10 +2,14 @@ import Head from "next/head";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
 import TaskCard from "../components/taskCard";
-import { useGetTodayTasks } from "../hooks/useGetTodayTasks";
+import { useContext } from "react";
+import { authContext } from "./_app";
+import { useGetTasks } from "../hooks/useGetTasks";
 
 export default function Home() {
-  const { isLoading, tasks } = useGetTodayTasks();
+  const { user } = useContext(authContext);
+
+  const { isLoading, tasks } = useGetTasks();
 
   return (
     <div className="h-screen">
@@ -26,6 +30,7 @@ export default function Home() {
               <p>No more tasks for today</p>
             ))}
         </div>
+        {user.name}
         <NavigationBar />
       </div>
     </div>

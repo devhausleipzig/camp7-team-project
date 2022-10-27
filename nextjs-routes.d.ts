@@ -10,10 +10,12 @@ declare module "nextjs-routes" {
     | { pathname: "/api/task/[task_id]/completed"; query: Query<{ "task_id": string }> }
     | { pathname: "/api/task/[task_id]"; query: Query<{ "task_id": string }> }
     | { pathname: "/api/task"; query?: Query | undefined }
-    | { pathname: "/api/task/today"; query?: Query | undefined }
+    | { pathname: "/api/user"; query?: Query | undefined }
     | { pathname: "/avatar"; query?: Query | undefined }
     | { pathname: "/"; query?: Query | undefined }
+    | { pathname: "/intro"; query?: Query | undefined }
     | { pathname: "/login"; query?: Query | undefined }
+    | { pathname: "/register"; query?: Query | undefined }
     | { pathname: "/rewards"; query?: Query | undefined }
     | { pathname: "/task/[task_id]"; query: Query<{ "task_id": string }> }
     | { pathname: "/taskMenu"; query?: Query | undefined }
