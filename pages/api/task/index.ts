@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-
+import { format, addDays } from "date-fns";
 import { prisma } from "../../../prisma/db";
 import { methods } from "../../../utils/methods";
 
@@ -8,15 +8,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		if (req.method == methods.get) {
 			const tasks = await prisma.task.findMany({
 				where: {
-					completed: false,
+					completed: false
 				},
 				take: 3,
-				orderBy: [{ endDate: "asc" }, { endTime: "asc" }],
+				orderBy: [{ endDate: "asc" }, { endTime: "asc" }]
 			});
+
 			res.status(200).json(tasks);
 			return;
 		}
-
 		if (req.method == methods.post) {
 			const taskData = JSON.parse(req.body);
 			const { creatorId } = req.query;
@@ -26,10 +26,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 					points: Number(taskData.points),
 					createdBy: {
 						connect: {
-							id: creatorId,
-						},
-					},
-				},
+							id: creatorId
+						}
+					}
+				}
 			});
 
 			res.status(201).json({ id: task.id });
