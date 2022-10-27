@@ -1,7 +1,19 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, SetStateAction, Dispatch } from "react";
 import { useRouter } from "next/router";
+import Context from "@mui/base/TabsUnstyled/TabsContext";
 
-export default function RegisterForm() {
+type RegisterFormProps = {
+	saveData: Dispatch<SetStateAction<RegisterFormData>>;
+};
+
+export type RegisterFormData = {
+	name: string;
+	email: string;
+	confirm_email: string;
+	password: string;
+};
+
+export default function RegisterForm({ saveData }: RegisterFormProps) {
 	const [email, setEmail] = useState("");
 	const [confirmEmail, setConfirmEmail] = useState("");
 	const [emailsSame, setEmailsSame] = useState(true);
@@ -36,6 +48,8 @@ export default function RegisterForm() {
 
 	function handleSubmit(event: FormEvent) {
 		event.preventDefault();
+		const formData = new FormData(event.currentTarget as HTMLFormElement);
+		saveData(Object.fromEntries(formData.entries()) as RegisterFormData);
 		router.push("/");
 	}
 

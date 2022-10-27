@@ -1,12 +1,20 @@
 import WideButton from "../components/WideButton";
-import RegisterForm from "../components/registerForm";
+import RegisterForm, { RegisterFormData } from "../components/registerForm";
+import { useContext, useEffect, useState } from "react";
+import { authContext } from "./_app";
 
 export default function Register() {
+	const { setUser } = useContext(authContext);
+	const [formData, setFormData] = useState({} as RegisterFormData);
+	useEffect(() => {
+		setUser(formData);
+	}, [formData]);
+
 	return (
 		<div className="h-screen bg-white font-sans my-5 ml-5 rounded-lg text-center text-custom_darkblue">
 			<div>
 				<h2 className="text-xl font-bold pt-6">Register</h2>
-				<RegisterForm />
+				<RegisterForm saveData={setFormData} />
 			</div>
 			<WideButton
 				label={"Log In"}
