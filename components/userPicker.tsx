@@ -1,5 +1,6 @@
 // @ts-nocheck
-
+import { User } from "@prisma/client";
+import { methods } from "../utils/methods";
 import { Button } from "@mui/material";
 import { useEmojiPicker, EmojiPicker } from "@welcome-ui/emoji-picker";
 import { Emoji } from "@welcome-ui/emoji";
