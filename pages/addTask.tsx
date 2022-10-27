@@ -19,7 +19,7 @@ const initialTask: TaskWithoutId = {
 
 /////
 ///// hard-code user ID; temp solution for testing
-const creatorId = "5f85d0e9-98b1-4095-9c3c-eeb52f75e704";
+const creatorId = "48c079fd-457f-4e1f-8aa8-caa8a37dd4bf";
 /////
 /////
 

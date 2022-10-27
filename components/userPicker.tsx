@@ -1,34 +1,44 @@
-// @ts-nocheck
 import { User } from "@prisma/client";
 import { methods } from "../utils/methods";
 import { Button } from "@mui/material";
 import { useEmojiPicker, EmojiPicker } from "@welcome-ui/emoji-picker";
 import { Emoji } from "@welcome-ui/emoji";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetUsers } from "../hooks/useGetUsers";
 
-export function Custom() {
+interface UserPickerProps {
+	users: User[];
+}
+
+interface EmojiUser {
+	alias: string;
+	url: string;
+}
+
+export function UserPicker() {
 	const emojiPicker = useEmojiPicker();
-	const [emojis, setEmojis] = useState([]);
+	const [emojis, setEmojis] = useState<String[]>([]);
 	const [emoji, setEmoji] = useState();
+	const { users } = useGetUsers();
 
-	const emojiData = [
-		{
-			alias: "chirag",
-			url: "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-		},
-		{
-			alias: "christie",
-			url: "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png",
-		},
-		{
-			alias: "mustafa",
-			url: "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png",
-		},
-		{
-			alias: "ashvanatha",
-			url: "https://www.shareicon.net/data/512x512/2016/09/15/829452_user_512x512.png",
-		},
-	];
+	const [emojiUsers, setEmojiUsers] = useState<EmojiUser[]>([]);
+
+	useEffect(() => {
+		setEmojiUsers(
+			users.map((user) => {
+				return {
+					alias: user.id,
+					url: user.imageUrl,
+				};
+			})
+		);
+	}, [users]);
+	// const emojiUsers: EmojiUser[] = users.map((user) => {
+	// 	return {
+	// 		alias: user.id,
+	// 		url: user.imageUrl,
+	// 	};
+	// });
 
 	return (
 		<>
@@ -36,9 +46,9 @@ export function Custom() {
 				<div className="flex gap-1">
 					{emojis.length > 0
 						? emojis.map((emoji) => {
-								const currentEmoji = emojiData.find(
-									({ alias }) => `:${alias}:` === emoji
-								);
+								// const currentEmoji = emojiUsers.find(
+								// 	({ alias }) => `:${alias}:` === emoji
+								// );
 								return (
 									<div className="relative">
 										<p
@@ -54,7 +64,16 @@ export function Custom() {
 										>
 											X
 										</p>
-										<Emoji emoji={currentEmoji.url || currentEmoji.alias} />
+										{/* <Emoji emoji={currentEmoji?.url} /> */}
+										<img
+											className="h-8 w-8"
+											src={
+												emojiUsers.find(
+													(emojiUser) =>
+														emojiUser.alias === emoji.replaceAll(":", "")
+												)?.url || ""
+											}
+										></img>
 									</div>
 								);
 						  })
@@ -63,16 +82,20 @@ export function Custom() {
 				<EmojiPicker.Trigger as={Button} {...emojiPicker}>
 					<p className="text-3xl font-bold">+</p>
 				</EmojiPicker.Trigger>
+				{/* @ts-ignore */}
 				<EmojiPicker
-					onChange={(emoji) => {
-						setEmojis((emojis) => {
-							return [...emojis, emoji];
+					onChange={(alias) => {
+						console.log(emoji);
+						setEmojis((prev) => {
+							return [...prev, alias as string];
 						});
 					}}
 					{...emojiPicker}
 				>
+					{/* @ts-ignore */}
 					<EmojiPicker.Tab name="Custom">
-						<EmojiPicker.List emojis={emojiData} />
+						{/* @ts-ignore */}
+						<EmojiPicker.List emojis={emojiUsers} />
 					</EmojiPicker.Tab>
 				</EmojiPicker>
 			</div>
