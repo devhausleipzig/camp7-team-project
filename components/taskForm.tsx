@@ -1,47 +1,76 @@
-import { Task } from "@prisma/client";
-import { Custom } from "./userPicker";
+import { Task, User } from "@prisma/client";
+import { useState } from "react";
+import { CustomEmojiPicker, EmojiUser } from "./customEmojiPicker";
 
 export type TaskWithoutId = Omit<
 	Task,
 	"id" | "createdAt" | "updatedAt" | "creatorId"
->;
+> & { assignedTo: User[] };
 
-interface Props {
-	onSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
-	task: Task | TaskWithoutId;
+type TaskFormProps = {
+	onSubmit: (formData: TaskFormData) => Promise<void>;
 	buttonText: string;
-	updateField: (
-		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-		field: keyof Task
-	) => void;
-}
+	userChoices: EmojiUser[];
+};
 
-export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
+export type TaskFormData = {
+	title: string;
+	points: number;
+	endTime: string;
+	endDate: string;
+	note: string;
+	assignedTo?: EmojiUser[];
+};
+
+export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
+	const [assignedUsers, setAssignedUsers] = useState<EmojiUser[]>([]);
+
 	return (
 		<div className="flex flex-col text-custom_darkblue font-bold items-center justify-center">
 			<form
-				onSubmit={onSubmit}
+				onSubmit={(event) => {
+					// prevent default behavior of browser for a form submission event
+					event.preventDefault();
+
+					// get data from the form html element
+					const formData = new FormData(
+						event.target as HTMLFormElement
+					);
+					const formDataObj = Object.fromEntries(
+						formData.entries()
+					) as unknown as TaskFormData;
+
+					// reset form input fields
+					const formElement = event.target as HTMLFormElement;
+					formElement.reset();
+					setAssignedUsers([]);
+
+					// manually add data from custom input component to form data
+					formDataObj["assignedTo"] = assignedUsers;
+					console.log(formDataObj);
+					onSubmit(formDataObj);
+				}}
 				className="flex flex-col gap-2 max-w-4xl mx-auto"
 			>
-				<label htmlFor="task-title">Task</label>
+				<label htmlFor="title">Task</label>
 				<input
 					className="border border-neutral-50 border-b-custom_darkblue  text-black"
 					type="text"
-					id="task-title"
-					value={task.title}
+					name="title"
 					placeholder="Input Task Name Here"
-					onChange={(event) => updateField(event, "title")}
 				/>
 				<label htmlFor="assignedTo">Members</label>
-				<Custom />
+				<CustomEmojiPicker
+					choiceList={userChoices}
+					emojis={assignedUsers}
+					setEmojis={setAssignedUsers}
+				/>
 				<label htmlFor="points">Points</label>
 				<input
 					className="border text-black border-neutral-50 border-b-custom_darkblue"
 					type="number"
-					id="points"
-					value={task.points}
+					name="points"
 					placeholder="enter a number here"
-					onChange={(event) => updateField(event, "points")}
 				/>
 				<div className="flex gap-2">
 					<div className="flex flex-col">
@@ -49,10 +78,8 @@ export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
 						<input
 							className="border text-black border-neutral-50 border-b-custom_darkblue"
 							type="time"
-							id="time"
-							value={task.endTime}
+							name="endTime"
 							placeholder="enter a number here"
-							onChange={(event) => updateField(event, "endTime")}
 						/>
 					</div>
 					<div className="flex flex-col">
@@ -60,10 +87,8 @@ export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
 						<input
 							className="border text-black border-neutral-50 border-b-custom_darkblue"
 							type="date"
-							id="date"
-							value={task.endDate}
+							name="endDate"
 							placeholder="enter a number here"
-							onChange={(event) => updateField(event, "endDate")}
 						/>
 					</div>
 				</div>
@@ -71,10 +96,8 @@ export function TaskForm({ onSubmit, task, updateField, buttonText }: Props) {
 				<textarea
 					className="border text-black border-neutral-50 border-b-custom_darkblue"
 					rows={2}
-					id="note"
+					name="note"
 					placeholder="Input note here..."
-					value={task.note}
-					onChange={(event) => updateField(event, "note")}
 				></textarea>
 
 				<button

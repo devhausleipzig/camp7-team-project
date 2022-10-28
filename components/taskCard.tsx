@@ -5,8 +5,12 @@ import StatusWidget from "./statusWidget";
 import CoinSelectedIcon from "../public/images/coin-selected.svg";
 import User1Icon from "../public/images/user-1.svg";
 import User2Icon from "../public/images/user-2.svg";
+import User3Icon from "../public/images/user-3.svg";
+import User4Icon from "../public/images/user-4.svg";
+import User5Icon from "../public/images/user-5.svg";
+import Pencil from "../public/images/pencil.svg";
 import { methods } from "../utils/methods";
-import { Task } from "@prisma/client";
+import { Task, User } from "@prisma/client";
 import clsx from "clsx";
 import Link from "next/link";
 import { route } from "nextjs-routes";
@@ -40,7 +44,7 @@ export function checkDeadline(endDate: string, endTime: string) {
 
 type taskCardProps = {
 	type: "preview" | "overview" | "extended";
-	task: Task;
+	task: Task & { assignedTo?: User[] };
 };
 
 // points moves down to middle row
@@ -48,9 +52,9 @@ type taskCardProps = {
 // add text "Members" above members
 // should have both time and date
 // status widget moves from middle row to bottom row
-// edit button goes where points used to be on top row
-// the description has unlimited rows
-// takes up full screen height
+// ^ edit button goes where points used to be on top row
+// ^ the description has unlimited rows
+// ^ takes up full screen height
 
 export default function TaskCard({ type, task }: taskCardProps) {
 	const [status, setStatus] = useState<boolean>(task.completed);
@@ -69,7 +73,6 @@ export default function TaskCard({ type, task }: taskCardProps) {
 		);
 		setStatus((status) => !status);
 		setRequestInProgess(false);
-		console.log(requestInProgess);
 	};
 
 	return (
@@ -85,11 +88,21 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						? "text-yellow-500"
 						: unit == "day"
 						? "text-custom_darkblue"
+						: "",
+					type == "extended"
+						? "flex flex-col rounded-lg h-[70%] mx-4 w-auto bg-white shadow-md+ p-1 items-center gap-1"
 						: ""
 				)}
 			>
 				{/* 1st card section */}
-				<div className="flex justify-between p-2 h-[30%] w-11/12 border-b-2 border-current">
+				<div
+					className={clsx(
+						"flex justify-between p-2 h-[30%] w-11/12 border-b-2",
+						type == "extended"
+							? "flex justify-between p-2 h-[9%] w-11/12 border-b-2"
+							: ""
+					)}
+				>
 					{/* counter Component */}
 					{type == "preview" || type == "extended" ? (
 						<p className="text-sm">{text}</p>
@@ -108,20 +121,30 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						</Link>
 					)}
 
-					{type != "extended" && (
+					{type == "extended" ? (
+						<Pencil className="h-5 w-5" />
+					) : (
 						<div className="flex text-md gap-1">
-							<div className="text-sm">{task.points}</div>
+							<div className="text-sm font-extrabold">
+								{task.points}
+							</div>
 							<CoinSelectedIcon className="w-5 h-5" />
 						</div>
 					)}
 				</div>
 				{/* 2nd card section */}
-				<div className="flex justify-between p-2 h-[45%] w-11/12 items-center">
+				<div
+					className={clsx(
+						"flex justify-between p-2 h-[45%] w-11/12 items-center",
+						type == "extended"
+							? "flex justify-between p-2 h-[25%] w-11/12 items-center gap-1"
+							: ""
+					)}
+				>
 					<div className="flex h-full gap-2">
-						{(type == "preview" || type == "overview") && (
-							<div className="w-1 h-full bg-current rounded-full"></div>
-						)}
-						<div className="flex-col">
+						<div className="w-1 h-full bg-current rounded-full shrink-0"></div>
+
+						<div className="flex-col w-4/5">
 							{/* Chore Title */}
 							{type == "preview" && (
 								<Link
@@ -137,46 +160,77 @@ export default function TaskCard({ type, task }: taskCardProps) {
 									</a>
 								</Link>
 							)}
+							{type == "extended" && (
+								<h2 className="text-xl font-extrabold">
+									{task.title}
+								</h2>
+							)}
 							{/* max. 32 characters */}
-							<div
+							<p
 								className={clsx(
-									"text-xs",
+									"text-xs shrink",
 									type == "preview"
 										? "line-clamp-1"
 										: type == "overview"
 										? "line-clamp-2"
+										: type == "extended"
+										? "line-clamp-4"
 										: ""
 								)}
 							>
 								{task.note}
-							</div>
+							</p>
 						</div>
 					</div>
-					<div className="flex">
-						<StatusWidget
-							status={status}
-							requestInProgess={requestInProgess}
-							clickHandler={statusClickHandler}
-						/>
-					</div>
+					{type != "extended" && (
+						<div className="flex">
+							<StatusWidget
+								status={status}
+								requestInProgess={requestInProgess}
+								clickHandler={statusClickHandler}
+							/>
+						</div>
+					)}
 				</div>
 				{/* 3rd card section */}
 				{type == "extended" && (
-					<div className="flex flex-col">
-						<div className="flex w-full items-end text-md gap-1 self-end">
-							<div className="text-sm">{task.points}</div>
+					<div className="flex flex-col w-11/12 h-3/6 gap-2">
+						<div className="flex w-full justify-end text-md gap-2">
+							<div className="text-sm font-extrabold">
+								{task.points}
+							</div>
 							<CoinSelectedIcon className="w-5 h-5" />
 						</div>
 
-						<div className="flex flex-col rounded-full border-1 border-black gap-1 self-start">
+						<div className="flex flex-col rounded-full border-1 border-black gap-3 self-start">
+							{/* max. 5 members */}
 							<h3 className="text-xl font-extrabold">Members</h3>
-							<User1Icon className="w-5 h-5" />
-							<User2Icon className="w-5 h-5" />
+							{task.assignedTo
+								? task.assignedTo.map((user, index) => {
+										return (
+											<div
+												key={index}
+												className="flex gap-2"
+											>
+												<img
+													className="w-5 h-5 rounded-full"
+													src={user.imageUrl}
+												></img>
+												<p>{user.name}</p>
+											</div>
+										);
+								  })
+								: "No members assigned"}
 						</div>
 					</div>
 				)}
 				{/* 4rd card section */}
-				<div className="flex justify-between p-2 h-[22%] w-11/12 items-end">
+				<div
+					className={clsx(
+						"flex justify-between p-1 h-[22%] w-11/12 items-end",
+						type == "extended" ? "h-[10%]" : ""
+					)}
+				>
 					{type == "preview" ? (
 						unit == "hour" || unit == "minute" ? (
 							<TimeWidget time={task.endTime} />
@@ -187,14 +241,28 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						<>
 							<TimeWidget time={task.endTime} />
 							<DateWidget date={task.endDate} />
+							<StatusWidget
+								status={status}
+								requestInProgess={requestInProgess}
+								clickHandler={statusClickHandler}
+							/>
 						</>
 					)}
 
-					{/* map over users assigned to task here */}
+					{/* map over users assigned to task here && max. 5 members */}
 					{type != "extended" && (
-						<div className="flex w-auto rounded-full border-1 border-black gap-1">
-							<User1Icon className="w-5 h-5" />
-							<User2Icon className="w-5 h-5" />
+						<div className="flex w-auto rounded-full border-1 border-black gap-2">
+							{task.assignedTo
+								? task.assignedTo.map((user, index) => {
+										return (
+											<img
+												key={index}
+												className="w-5 h-5 rounded-full"
+												src={user.imageUrl}
+											></img>
+										);
+								  })
+								: "No members assigned"}
 						</div>
 					)}
 				</div>
