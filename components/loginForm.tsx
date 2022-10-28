@@ -18,6 +18,7 @@ export default function LoginForm() {
 					placeholder="Please enter your email"
 					className="form_input"
 					size={32}
+					height={12}
 					required
 				/>
 			</label>

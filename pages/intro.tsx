@@ -16,8 +16,10 @@ export default function Login() {
 					/>
 				</div>
 				<div className="text-custom_darkblue mt-10">
-					<h1 className="text-3xl font-bold">Fancy an ice cream?</h1>
-					<h1 className="text-3xl font-bold">Just fold the laundry.</h1>
+					<h1 className="text-3xl font-bold">
+						Fancy an ice cream?
+						<br /> Just fold the laundry.
+					</h1>
 					<p className="mt-5 mx-5 pb-6 ">
 						Now, this is a story all about how My life got flipped-turned upside
 						down And I'd like to take a minute Just sit right there I'll tell

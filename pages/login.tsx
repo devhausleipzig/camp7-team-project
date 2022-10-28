@@ -16,7 +16,7 @@ export default function Register() {
 			</div>
 			<WideButton
 				label={"Register"}
-				className="text-custom_lightblue underline underline-offset-2 h-0"
+				className="text-[#BCD4DE] underline underline-offset-2 h-0"
 				link={"/register"}
 			/>
 		</div>

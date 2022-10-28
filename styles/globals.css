@@ -12,11 +12,11 @@
 }
 
 .form_input {
-	@apply border-b-2 my-1 border-b-custom_darkblue mb-8 placeholder-custom_lightblue outline-custom_darksage block outline-offset-4;
+	@apply border-b-2 my-1 border-b-custom_darkblue mb-8 placeholder-custom_lightblue outline-custom_darksage block outline-offset-4 leading-8;
 }
 
 .form_input_wrong {
-	@apply border-red-600 border-4 my-1 mb-8;
+	@apply border-b-2 my-1 border-red-600 mb-8 leading-8 bg-red-100 placeholder-red-600 outline-red-600 outline-offset-4;
 }
 
 .form_disabled {
