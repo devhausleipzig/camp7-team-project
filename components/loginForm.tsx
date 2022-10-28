@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
+import { route } from "nextjs-routes";
 import React, { FormEvent } from "react";
 
 export default function LoginForm() {
 	const router = useRouter();
 	function handleSubmit(event: FormEvent) {
 		event.preventDefault();
-		router.push("/");
+		router.push({ pathname: "/" });
 	}
 
 	return (
