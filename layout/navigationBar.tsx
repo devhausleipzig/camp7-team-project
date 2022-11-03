@@ -21,15 +21,16 @@ export default function NavigationBar({}: navigationBarProps) {
           {Tasks.length > 0 && (
             <div className="bg-red-500 rounded-full h-4 w-4 absolute top-0 right-0"></div>
           )}
+          {/* @ts-ignore */}
           <Link href="/tasks">
             <ClipboardDocumentListIcon className="h-10 w-10 text-white" />
           </Link>
         </div>
-
+        {/* @ts-ignore */}
         <Link href="/addTask">
           <PlusCircleIcon className="h-16 w-16 text-white" />
         </Link>
-
+        {/* @ts-ignore */}
         <Link href="/rewards">
           <ShoppingCartIcon className="h-10 w-10 text-white" />
         </Link>

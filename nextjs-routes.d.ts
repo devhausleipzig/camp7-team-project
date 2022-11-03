@@ -5,18 +5,24 @@
 // prettier-ignore
 declare module "nextjs-routes" {
   export type Route =
-    | { pathname: "/account"; query?: Query | undefined }
     | { pathname: "/addTask"; query?: Query | undefined }
     | { pathname: "/api/task/[task_id]/completed"; query: Query<{ "task_id": string }> }
     | { pathname: "/api/task/[task_id]"; query: Query<{ "task_id": string }> }
     | { pathname: "/api/task"; query?: Query | undefined }
     | { pathname: "/api/user"; query?: Query | undefined }
-    | { pathname: "/avatar"; query?: Query | undefined }
+    | { pathname: "/api/user/points"; query?: Query | undefined }
     | { pathname: "/"; query?: Query | undefined }
     | { pathname: "/intro"; query?: Query | undefined }
     | { pathname: "/login"; query?: Query | undefined }
     | { pathname: "/register"; query?: Query | undefined }
     | { pathname: "/rewards"; query?: Query | undefined }
+    | { pathname: "/settings/about-us"; query?: Query | undefined }
+    | { pathname: "/settings/change-password"; query?: Query | undefined }
+    | { pathname: "/settings/change-theme"; query?: Query | undefined }
+    | { pathname: "/settings/edit-profile"; query?: Query | undefined }
+    | { pathname: "/settings/edit-team-profile"; query?: Query | undefined }
+    | { pathname: "/settings"; query?: Query | undefined }
+    | { pathname: "/settings/privacy-policy"; query?: Query | undefined }
     | { pathname: "/task/[task_id]"; query: Query<{ "task_id": string }> }
     | { pathname: "/taskMenu"; query?: Query | undefined }
     | { pathname: "/tasks"; query?: Query | undefined };

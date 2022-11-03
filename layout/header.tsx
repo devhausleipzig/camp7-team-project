@@ -10,7 +10,8 @@ type headerProps = {};
 export default function Header({}: headerProps) {
   return (
     <div className="h-auto top-0 p-3">
-      <div className="flex justify-between items-end">
+      <div className="flex justify-between items-en">
+        {/* @ts-ignore */}
         <Link href="/">
           <HomeIcon className="h-8 w-8 text-white" />
         </Link>
@@ -19,7 +20,8 @@ export default function Header({}: headerProps) {
           <p className="flex text-2xl text-white">995</p>
           <CoinSelectedIcon className="w-9 h-9" />
         </div>
-        <Link href="/avatar">
+        {/* @ts-ignore */}
+        <Link href="/settings">
           <UserCircleIcon className="h-8 w-8 text-white" />
         </Link>
       </div>
