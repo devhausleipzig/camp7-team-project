@@ -21,15 +21,18 @@ export function checkDeadline(endDate: string, endTime: string) {
 	const diffInDays = Math.trunc(diffInHours / 24);
 	let diffString = "";
 
-	if (diffInDays > 0) {
+	if (diffInDays > 1) {
 		unit = "day";
 		diffString = `less than ${diffInDays} days`;
-	} else if (diffInHours > 0) {
+	} else if (diffInHours > 1) {
 		unit = "hour";
-		diffString = `less than ${diffInHours} hours`;
+		diffString = `less than ${diffInHours + 1} hours`;
 	} else if (diffInMinutes > 0) {
 		unit = "minute";
-		diffString = `less than ${diffInMinutes} minutes`;
+		diffString =
+			`less than ${diffInMinutes} minute` + (diffInMinutes > 1)
+				? "s"
+				: "";
 	} else {
 		unit = null;
 		diffString = "deadline passed";
