@@ -30,9 +30,7 @@ export function checkDeadline(endDate: string, endTime: string) {
 	} else if (diffInMinutes > 0) {
 		unit = "minute";
 		diffString =
-			`less than ${diffInMinutes} minute` + (diffInMinutes > 1)
-				? "s"
-				: "";
+			`less than ${diffInMinutes} minute` + (diffInMinutes > 1 ? "s" : "");
 	} else {
 		unit = null;
 		diffString = "deadline passed";
@@ -43,7 +41,7 @@ export function checkDeadline(endDate: string, endTime: string) {
 export enum TaskCardTypes {
 	preview = "preview",
 	overview = "overview",
-	extended = "extended"
+	extended = "extended",
 }
 
 type taskCardProps = {
@@ -71,7 +69,7 @@ export default function TaskCard({ type, task }: taskCardProps) {
 		await fetch(
 			route({
 				pathname: "/api/task/[task_id]/completed",
-				query: { task_id: task.id, completed: String(!status) }
+				query: { task_id: task.id, completed: String(!status) },
 			}),
 			{ method: methods.patch }
 		);
@@ -114,13 +112,11 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						<Link
 							href={{
 								pathname: "/task/[task_id]",
-								query: { task_id: task.id }
+								query: { task_id: task.id },
 							}}
 						>
 							<a>
-								<div className="text-xl font-extrabold">
-									{task.title}
-								</div>
+								<div className="text-xl font-extrabold">{task.title}</div>
 							</a>
 						</Link>
 					)}
@@ -129,9 +125,7 @@ export default function TaskCard({ type, task }: taskCardProps) {
 						<Pencil className="h-5 w-5" />
 					) : (
 						<div className="flex text-md gap-1">
-							<div className="text-sm font-extrabold">
-								{task.points}
-							</div>
+							<div className="text-sm font-extrabold">{task.points}</div>
 							<CoinSelectedIcon className="w-5 h-5" />
 						</div>
 					)}
@@ -154,20 +148,16 @@ export default function TaskCard({ type, task }: taskCardProps) {
 								<Link
 									href={{
 										pathname: "/task/[task_id]",
-										query: { task_id: task.id }
+										query: { task_id: task.id },
 									}}
 								>
 									<a>
-										<h2 className="text-xl font-extrabold">
-											{task.title}
-										</h2>
+										<h2 className="text-xl font-extrabold">{task.title}</h2>
 									</a>
 								</Link>
 							)}
 							{type == "extended" && (
-								<h2 className="text-xl font-extrabold">
-									{task.title}
-								</h2>
+								<h2 className="text-xl font-extrabold">{task.title}</h2>
 							)}
 							{/* max. 32 characters */}
 							<p
@@ -200,9 +190,7 @@ export default function TaskCard({ type, task }: taskCardProps) {
 				{type == "extended" && (
 					<div className="flex flex-col w-11/12 h-3/6 gap-2">
 						<div className="flex w-full justify-end text-md gap-2">
-							<div className="text-sm font-extrabold">
-								{task.points}
-							</div>
+							<div className="text-sm font-extrabold">{task.points}</div>
 							<CoinSelectedIcon className="w-5 h-5" />
 						</div>
 
@@ -212,15 +200,10 @@ export default function TaskCard({ type, task }: taskCardProps) {
 							{task.assignedTo
 								? task.assignedTo.map((user, index) => {
 										return (
-											<div
-												key={index}
-												className="flex gap-2"
-											>
+											<div key={index} className="flex gap-2">
 												<img
 													className="w-5 h-5 rounded-full"
-													src={
-														user.imageUrl as string
-													}
+													src={user.imageUrl as string}
 												></img>
 												<p>{user.name}</p>
 											</div>
