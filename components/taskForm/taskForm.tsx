@@ -1,6 +1,9 @@
 import { Task, User } from "@prisma/client";
 import { useState } from "react";
-import { CustomEmojiPicker, EmojiUser } from "./customEmojiPicker";
+import {
+	CustomEmojiPicker,
+	EmojiUser
+} from "../customEmojiPicker/customEmojiPicker";
 
 export type TaskWithoutId = Omit<
 	Task,

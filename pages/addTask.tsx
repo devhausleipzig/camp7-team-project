@@ -5,14 +5,18 @@ import React, {
 	useEffect,
 	useState
 } from "react";
-import { TaskWithoutId, TaskForm, TaskFormData } from "../components/taskForm";
-import Header from "../layout/header";
-import NavigationBar from "../layout/navigationBar";
+import {
+	TaskWithoutId,
+	TaskForm,
+	TaskFormData
+} from "../components/taskForm/taskForm";
+import Header from "../layout/header/header";
+import NavigationBar from "../layout/navigationBar/navigationBar";
 import { format } from "date-fns";
 import { methods } from "../utils/methods";
 import { Task, User } from "@prisma/client";
 import { useGetUsers } from "../hooks/useGetUsers";
-import { EmojiUser } from "../components/customEmojiPicker";
+import { EmojiUser } from "../components/customEmojiPicker/customEmojiPicker";
 import { AuthContext } from "./_app";
 
 type addTaskProps = {};

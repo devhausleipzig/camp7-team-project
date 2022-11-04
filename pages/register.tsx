@@ -1,4 +1,4 @@
-import WideButton from "../components/WideButton";
+import WideButton from "../components/button/button";
 import RegisterForm, { RegisterFormData } from "../components/registerForm";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./_app";

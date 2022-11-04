@@ -1,7 +1,7 @@
 import React from "react";
 import LoginImg from "../src/images/login.png";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import WideButton from "../components/WideButton";
+import WideButton from "../components/button/button";
 
 export default function Login() {
 	return (
@@ -17,11 +17,14 @@ export default function Login() {
 				</div>
 				<div className="text-custom_darkblue mt-10">
 					<h1 className="text-3xl font-bold">Fancy an ice cream?</h1>
-					<h1 className="text-3xl font-bold">Just fold the laundry.</h1>
+					<h1 className="text-3xl font-bold">
+						Just fold the laundry.
+					</h1>
 					<p className="mt-5 mx-5 pb-6 ">
-						Now, this is a story all about how My life got flipped-turned upside
-						down And I'd like to take a minute Just sit right there I'll tell
-						you how I became the prince of a town called Bel-Air
+						Now, this is a story all about how My life got
+						flipped-turned upside down And I'd like to take a minute
+						Just sit right there I'll tell you how I became the
+						prince of a town called Bel-Air
 					</p>
 					<WideButton
 						label={"Log In"}

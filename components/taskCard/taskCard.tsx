@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import TimeWidget from "./timeWidget";
-import DateWidget from "./dateWidget";
-import StatusWidget from "./statusWidget";
-import CoinSelectedIcon from "../public/images/coin-selected.svg";
-import User1Icon from "../public/images/user-1.svg";
-import User2Icon from "../public/images/user-2.svg";
-import User3Icon from "../public/images/user-3.svg";
-import User4Icon from "../public/images/user-4.svg";
-import User5Icon from "../public/images/user-5.svg";
-import Pencil from "../public/images/pencil.svg";
-import { methods } from "../utils/methods";
+import TimeWidget from "../timeWidget/timeWidget";
+import DateWidget from "../dateWidget/dateWidget";
+import StatusWidget from "../statusWidget/statusWidget";
+import CoinSelectedIcon from "../../public/images/coin-selected.svg";
+import Pencil from "../../public/images/pencil.svg";
+import { methods } from "../../utils/methods";
 import { Task, User } from "@prisma/client";
 import clsx from "clsx";
 import Link from "next/link";
@@ -42,8 +37,14 @@ export function checkDeadline(endDate: string, endTime: string) {
 	return { unit, text: diffString };
 }
 
+export enum TaskCardTypes {
+	preview = "preview",
+	overview = "overview",
+	extended = "extended"
+}
+
 type taskCardProps = {
-	type: "preview" | "overview" | "extended";
+	type: TaskCardTypes;
 	task: Task & { assignedTo?: User[] };
 };
 
@@ -214,7 +215,9 @@ export default function TaskCard({ type, task }: taskCardProps) {
 											>
 												<img
 													className="w-5 h-5 rounded-full"
-													src={user.imageUrl}
+													src={
+														user.imageUrl as string
+													}
 												></img>
 												<p>{user.name}</p>
 											</div>
@@ -258,7 +261,7 @@ export default function TaskCard({ type, task }: taskCardProps) {
 											<img
 												key={index}
 												className="w-5 h-5 rounded-full"
-												src={user.imageUrl}
+												src={user.imageUrl as string}
 											></img>
 										);
 								  })

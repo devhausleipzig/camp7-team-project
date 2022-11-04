@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Header from "../layout/header";
-import NavigationBar from "../layout/navigationBar";
-import TaskCard from "../components/taskCard";
+import Header from "../layout/header/header";
+import NavigationBar from "../layout/navigationBar/navigationBar";
+import TaskCard from "../components/taskCard/taskCard";
 import { useContext } from "react";
 import { AuthContext } from "./_app";
 import { useGetTasks } from "../hooks/useGetTasks";
