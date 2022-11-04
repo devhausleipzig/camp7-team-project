@@ -1,40 +1,43 @@
-import Head from "next/head";
-import Header from "../layout/header/header";
-import NavigationBar from "../layout/navigationBar/navigationBar";
-import TaskCard from "../components/taskCard/taskCard";
-import { useContext } from "react";
-import { AuthContext } from "./_app";
-import { useGetTasks } from "../hooks/useGetTasks";
+import React from "react";
+// import LoginImg from "../src/images/login.png";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import WideButton, { ButtonSizes } from "../components/button/button";
 
-export default function Home() {
-	const { user, token } = useContext(AuthContext);
-
-	if (token) {
-		const { isLoading, tasks } = useGetTasks(token);
-
-		return (
-			<div className="h-screen">
-				<div className="flex flex-col justify-between h-full">
-					<Header />
-					<div className="flex flex-col w-full px-4 justify-center gap-4">
-						{!isLoading &&
-							(tasks.length > 0 ? (
-								tasks.map((task) => (
-									<TaskCard
-										type="preview"
-										task={task}
-										key={task.id}
-									></TaskCard>
-								))
-							) : (
-								<p>No more tasks for today</p>
-							))}
-					</div>
-					<NavigationBar />
+export default function Intro() {
+	return (
+		<div className=" bg-white font-sans m-4 rounded-lg">
+			<div className="text-center pt-14">
+				{/* <CheckCircleIcon className="text-[#68B684] h-48 mx-auto" /> */}
+				<div>
+					{/* <img
+						src={LoginImg.src}
+						alt="login image"
+						className="text-[#68B684] h-48 mx-auto"
+					/> */}
+				</div>
+				<div className="text-custom_darkblue mt-10">
+					<h1 className="text-3xl font-bold">Fancy an ice cream?</h1>
+					<h1 className="text-3xl font-bold">
+						Just fold the laundry.
+					</h1>
+					<p className="mt-5 mx-5 pb-6 ">
+						Now, this is a story all about how My life got
+						flipped-turned upside down And I'd like to take a minute
+						Just sit right there I'll tell you how I became the
+						prince of a town called Bel-Air
+					</p>
+					<WideButton
+						label={"Log In"}
+						size={ButtonSizes.default}
+						link={"/login"}
+					/>
+					<WideButton
+						label={"Register"}
+						size={ButtonSizes.default}
+						link={"/register"}
+					/>
 				</div>
 			</div>
-		);
-	} else {
-		return <p>Redirecting...</p>;
-	}
+		</div>
+	);
 }

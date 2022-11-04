@@ -1,18 +1,9 @@
 import Button, { ButtonSizes } from "../components/button/button";
-import {
-	Dispatch,
-	FormEvent,
-	SetStateAction,
-	useContext,
-	useEffect,
-	useState
-} from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./_app";
 import { useRouter } from "next/router";
-
-type RegisterFormProps = {
-	saveData: Dispatch<SetStateAction<RegisterFormData>>;
-};
+import { route } from "nextjs-routes";
+import { methods } from "../utils/methods";
 
 export type RegisterFormData = {
 	name: string;
@@ -22,7 +13,6 @@ export type RegisterFormData = {
 };
 
 export default function Register() {
-	const { setUser } = useContext(AuthContext);
 	const [formData, setFormData] = useState({} as RegisterFormData);
 
 	const [email, setEmail] = useState("");
@@ -55,16 +45,33 @@ export default function Register() {
 		setIsValidEmail(emailRegex.test(email));
 	}
 
-	function handleSubmit(event: FormEvent) {
+	async function handleSubmit(event: FormEvent) {
 		event.preventDefault();
-		const formData = new FormData(event.currentTarget as HTMLFormElement);
-		setFormData(Object.fromEntries(formData.entries()) as RegisterFormData);
-		router.push({ pathname: "/" });
-	}
+		const target = event.currentTarget as HTMLFormElement;
 
-	useEffect(() => {
-		setUser(formData);
-	}, [formData]);
+		const formData = new FormData(target);
+		const formDataObj = Object.fromEntries(
+			formData.entries()
+		) as RegisterFormData;
+
+		const response = await fetch(
+			route({ pathname: "/api/auth/register" }),
+			{
+				method: methods.post,
+				body: JSON.stringify({
+					...formDataObj,
+					confirm_email: undefined
+				})
+			}
+		);
+
+		if (response.status != 201) {
+			// request unsuccessful
+		} else {
+			target.reset();
+			router.push({ pathname: "/login" });
+		}
+	}
 
 	return (
 		<div className="h-screen bg-white font-sans my-5 ml-5 rounded-lg text-center text-custom_darkblue">

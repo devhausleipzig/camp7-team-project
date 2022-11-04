@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
-import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Tasks from "../../pages/tasks";
 

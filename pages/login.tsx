@@ -39,7 +39,7 @@ export default function Login() {
 
 		context.setUser(userBody);
 		context.setToken(token);
-		router.push({ pathname: "/" });
+		router.push({ pathname: "/home" });
 	}
 
 	return (

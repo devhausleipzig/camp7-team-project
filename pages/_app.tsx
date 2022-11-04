@@ -30,20 +30,12 @@ export default function App({ Component, pageProps }: AppProps) {
 	const [user, setUser] = useState({} as user);
 	const [token, setToken] = useState("");
 
-	const router = useRouter();
-
-	useEffect(() => {
-		if (!token) {
-			router.replace({ pathname: "/login" });
-		}
-	});
-
 	return (
 		<>
 			<Head>
 				<title>Task App</title>
 				<meta content="A task management app for families."></meta>
-				<link rel="icon" href="/favicon.ico" />
+				<link rel="icon" href="../public/images/silly.ico" />
 			</Head>
 			<WuiProvider theme={theme}>
 				<AuthContext.Provider

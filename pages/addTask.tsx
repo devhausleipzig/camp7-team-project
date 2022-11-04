@@ -1,30 +1,19 @@
-import React, {
-	ChangeEvent,
-	FormEvent,
-	useContext,
-	useEffect,
-	useState
-} from "react";
-import {
-	TaskWithoutId,
-	TaskForm,
-	TaskFormData
-} from "../components/taskForm/taskForm";
+import React, { useContext, useEffect, useState } from "react";
+import { TaskForm, TaskFormData } from "../components/taskForm/taskForm";
 import Header from "../layout/header/header";
 import NavigationBar from "../layout/navigationBar/navigationBar";
-import { format } from "date-fns";
 import { methods } from "../utils/methods";
 import { Task, User } from "@prisma/client";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { EmojiUser } from "../components/customEmojiPicker/customEmojiPicker";
 import { AuthContext } from "./_app";
+import useProtectedPage from "../hooks/useProtectedPage";
 
 type addTaskProps = {};
 
 export default function AddTask({}: addTaskProps) {
+	const { token } = useProtectedPage();
 	const { users } = useGetUsers();
-
-	const { user, token } = useContext(AuthContext);
 
 	const [emojiUsers, setEmojiUsers] = useState<EmojiUser[]>([]);
 

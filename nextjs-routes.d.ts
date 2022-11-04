@@ -17,14 +17,13 @@ declare module "nextjs-routes" {
     | { pathname: "/api/user"; query?: Query | undefined }
     | { pathname: "/api/user/me"; query?: Query | undefined }
     | { pathname: "/api/user/points"; query?: Query | undefined }
-    | { pathname: "/avatar"; query?: Query | undefined }
+    | { pathname: "/home"; query?: Query | undefined }
     | { pathname: "/"; query?: Query | undefined }
-    | { pathname: "/intro"; query?: Query | undefined }
     | { pathname: "/login"; query?: Query | undefined }
     | { pathname: "/register"; query?: Query | undefined }
     | { pathname: "/rewards"; query?: Query | undefined }
+    | { pathname: "/settings"; query?: Query | undefined }
     | { pathname: "/task/[task_id]"; query: Query<{ "task_id": string }> }
-    | { pathname: "/taskMenu"; query?: Query | undefined }
     | { pathname: "/tasks"; query?: Query | undefined };
 
   type Query<Params = {}> = Params & { [key: string]: string | string[] | undefined };
