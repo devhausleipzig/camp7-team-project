@@ -8,7 +8,7 @@ import { methods } from "../utils/methods";
 export type RegisterFormData = {
 	name: string;
 	email: string;
-	confirm_email: string;
+	confirmEmail?: string;
 	password: string;
 };
 
@@ -54,14 +54,13 @@ export default function Register() {
 			formData.entries()
 		) as RegisterFormData;
 
+		delete formDataObj["confirmEmail"];
+
 		const response = await fetch(
 			route({ pathname: "/api/auth/register" }),
 			{
 				method: methods.post,
-				body: JSON.stringify({
-					...formDataObj,
-					confirm_email: undefined
-				})
+				body: JSON.stringify(formDataObj)
 			}
 		);
 

@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		if (req.method == methods.post) {
-			const userData = req.body;
+			const userData = JSON.parse(req.body);
 
 			const user = await prisma.user.create({
 				data: {

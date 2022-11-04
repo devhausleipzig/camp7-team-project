@@ -11,20 +11,22 @@ export default function Login() {
 
 	async function handleSubmit(event: FormEvent) {
 		event.preventDefault();
+		const target = event.target as HTMLFormElement;
+
+		const formData = new FormData(target);
+		const formDataObj = Object.fromEntries(formData.entries());
 
 		const loginResponse = await fetch(
 			"http://localhost:3000/api/auth/login",
 			{
 				method: methods.post,
-				body: JSON.stringify({
-					email: "test@test.com",
-					password: "password"
-				})
+				body: JSON.stringify(formDataObj)
 			}
 		);
 
 		if (loginResponse.status != 200) {
 			// not logged in
+			window.alert("Incorrect credentials.");
 		}
 
 		const loginBody = await loginResponse.json();
