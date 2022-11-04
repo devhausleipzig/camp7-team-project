@@ -2,7 +2,7 @@ import { Task, User } from "@prisma/client";
 import { useState } from "react";
 import {
 	CustomEmojiPicker,
-	EmojiUser
+	EmojiUser,
 } from "../customEmojiPicker/customEmojiPicker";
 
 export type TaskWithoutId = Omit<
@@ -36,9 +36,7 @@ export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
 					event.preventDefault();
 
 					// get data from the form html element
-					const formData = new FormData(
-						event.target as HTMLFormElement
-					);
+					const formData = new FormData(event.target as HTMLFormElement);
 					const formDataObj = Object.fromEntries(
 						formData.entries()
 					) as unknown as TaskFormData;
@@ -103,10 +101,7 @@ export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
 					placeholder="Input note here..."
 				></textarea>
 
-				<button
-					className="bg-slate-700 text-slate-50 p-2"
-					type="submit"
-				>
+				<button className="bg-slate-700 text-slate-50 p-2" type="submit">
 					{buttonText}
 				</button>
 			</form>

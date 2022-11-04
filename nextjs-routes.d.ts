@@ -23,6 +23,7 @@ declare module "nextjs-routes" {
     | { pathname: "/register"; query?: Query | undefined }
     | { pathname: "/rewards"; query?: Query | undefined }
     | { pathname: "/settings"; query?: Query | undefined }
+    | { pathname: "/task/[task_id]/edit"; query: Query<{ "task_id": string }> }
     | { pathname: "/task/[task_id]"; query: Query<{ "task_id": string }> }
     | { pathname: "/tasks"; query?: Query | undefined };
 
