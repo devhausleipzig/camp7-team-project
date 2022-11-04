@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			return;
 		}
 
-		res.status(500).send("unknown request");
+		res.status(500).send({ message: "Unknown request," });
 	} catch (err) {
 		console.log(err);
 		res.status(500).end();

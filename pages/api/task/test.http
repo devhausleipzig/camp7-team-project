@@ -1,0 +1,16 @@
+GET http://localhost:3000/api/task
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWRiZjAyZWItOWNiMy00MjA2LTgwMjYtNDU0OGQ2YTUyM2Y0IiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjY3NDg5MjQ5LCJleHAiOjE2Njc1NzU2NDl9.0cHPL-LRGeAKkQLBIU6TDlJgKS2HGxV3NImHtEDG5Uc
+
+###
+
+POST http://localhost:3000/api/task
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWRiZjAyZWItOWNiMy00MjA2LTgwMjYtNDU0OGQ2YTUyM2Y0IiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjY3NDg5MjQ5LCJleHAiOjE2Njc1NzU2NDl9.0cHPL-LRGeAKkQLBIU6TDlJgKS2HGxV3NImHtEDG5Uc
+
+{
+    "title": "Test Task",
+    "points": 123,
+    "endTime": "11:30",
+    "endDate": "2022-11-03",
+    "note":   "Test task created from the HTTP Rest Client",
+    "assignedTo": [{"id": "adbf02eb-9cb3-4206-8026-4548d6a523f4"}]
+}

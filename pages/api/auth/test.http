@@ -1,0 +1,22 @@
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "Franz",
+    "email": "test@test.com",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:3000/api/auth/login
+
+{
+    "email": "test@test.com",
+    "password": "password"
+}
+
+###
+
+GET http://localhost:3000/api/user
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWRiZjAyZWItOWNiMy00MjA2LTgwMjYtNDU0OGQ2YTUyM2Y0IiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjY3NTA2NjA3LCJleHAiOjE2Njc1OTMwMDd9.El9uDcVOnXCb0M4W9H5hKb1i07GW4R9LVpOkxqi1xAA

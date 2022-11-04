@@ -2,7 +2,7 @@ import WideButton from "../components/WideButton";
 import LoginImg from "../src/images/login.png";
 import LoginForm from "../components/loginForm";
 
-export default function Register() {
+export default function Login() {
 	return (
 		<div className="h-screen bg-white font-sans my-5 ml-5 rounded-lg text-center text-custom_darkblue">
 			<div className="pt-14">

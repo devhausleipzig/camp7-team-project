@@ -3,11 +3,27 @@ import { prisma } from "../../../prisma/db";
 import { methods } from "../../../utils/methods";
 import { User } from "@prisma/client";
 
+import jwt from "jsonwebtoken";
+import { Payload } from "../auth/login";
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
+		const token = req.headers.authorization;
+
+		if (!token) {
+			res.status(401).send("Authorization required.");
+			return;
+		}
+
+		const decodedToken = jwt.verify(
+			token,
+			process.env.TOKEN_KEY as string
+		) as Payload;
+
 		if (req.method == methods.get) {
 			const tasks = await prisma.task.findMany({
 				where: {
+					assignedTo: { some: { id: decodedToken.user_id } },
 					completed: false
 				},
 				include: {
@@ -20,10 +36,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			res.status(200).json(tasks);
 			return;
 		}
+
 		if (req.method == methods.post) {
 			const taskData = JSON.parse(req.body);
-			console.log(taskData);
-			const { creatorId } = req.query;
+
 			const task = await prisma.task.create({
 				data: {
 					...taskData,
@@ -31,7 +47,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 					points: Number(taskData.points),
 					createdBy: {
 						connect: {
-							id: creatorId
+							id: decodedToken.user_id
 						}
 					},
 					assignedTo: {
@@ -46,8 +62,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			return;
 		}
 
-		res.status(500).send("unknown request");
+		res.status(500).json({ message: "Unknown request." });
 	} catch (err) {
+		if (err instanceof jwt.JsonWebTokenError) {
+			res.status(401).json({ message: "Malformed token." });
+			return;
+		}
+
+		if (err instanceof jwt.TokenExpiredError) {
+			res.status(401).json({ message: "Token expired." });
+			return;
+		}
+
+		if (err instanceof jwt.NotBeforeError) {
+			res.status(401).json({ message: "Token cannot be used yet." });
+			return;
+		}
+
 		console.log(err);
 		res.status(500).end();
 	}

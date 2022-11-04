@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, {
+	ChangeEvent,
+	FormEvent,
+	useContext,
+	useEffect,
+	useState
+} from "react";
 import { TaskWithoutId, TaskForm, TaskFormData } from "../components/taskForm";
 import Header from "../layout/header";
 import NavigationBar from "../layout/navigationBar";
@@ -7,17 +13,14 @@ import { methods } from "../utils/methods";
 import { Task, User } from "@prisma/client";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { EmojiUser } from "../components/customEmojiPicker";
+import { AuthContext } from "./_app";
 
 type addTaskProps = {};
 
-/////
-///// hard-code user ID; temp solution for testing
-const creatorId = "9b3027da-0f23-4ac0-87ea-60b2ef0d9417";
-/////
-/////
-
 export default function AddTask({}: addTaskProps) {
 	const { users } = useGetUsers();
+
+	const { user, token } = useContext(AuthContext);
 
 	const [emojiUsers, setEmojiUsers] = useState<EmojiUser[]>([]);
 
@@ -26,8 +29,8 @@ export default function AddTask({}: addTaskProps) {
 		setEmojiUsers(
 			users.map((user) => {
 				return {
-					alias: user.id,
-					url: user.imageUrl
+					alias: user.id as string,
+					url: user.imageUrl as string
 				};
 			})
 		);
@@ -46,16 +49,17 @@ export default function AddTask({}: addTaskProps) {
 
 		try {
 			alert("Your task got created");
-			fetch(`http://localhost:3000/api/task?creatorId=${creatorId}`, {
+			fetch(`http://localhost:3000/api/task`, {
 				method: methods.post,
-				body: JSON.stringify(task)
+				body: JSON.stringify(task),
+				headers: { Authorization: token }
 			});
 		} catch (err) {
 			console.log(err);
 		}
 	}
 
-	return (
+	return token ? (
 		<div className="flex flex-col justify-between h-screen">
 			<Header />
 			<div className="flex justify-center">
@@ -69,5 +73,7 @@ export default function AddTask({}: addTaskProps) {
 			</div>
 			<NavigationBar />
 		</div>
+	) : (
+		<p>Redirecting...</p>
 	);
 }

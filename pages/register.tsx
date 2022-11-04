@@ -1,11 +1,12 @@
 import WideButton from "../components/WideButton";
 import RegisterForm, { RegisterFormData } from "../components/registerForm";
 import { useContext, useEffect, useState } from "react";
-import { authContext } from "./_app";
+import { AuthContext } from "./_app";
 
 export default function Register() {
-	const { setUser } = useContext(authContext);
+	const { setUser } = useContext(AuthContext);
 	const [formData, setFormData] = useState({} as RegisterFormData);
+
 	useEffect(() => {
 		setUser(formData);
 	}, [formData]);

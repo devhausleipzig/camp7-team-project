@@ -9,21 +9,23 @@ import { Payload } from "../auth/login";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		if (req.method == methods.get) {
-			// const token = req.headers.authorization;
+			const token = req.headers.authorization;
 
-			// if (!token) {
-			// 	res.status(401).send("Authorization required.");
-			// 	return;
-			// }
+			if (!token) {
+				res.status(401).json({ message: "Authorization required." });
+				return;
+			}
 
-			// const decodedToken = jwt.verify(
-			// 	token,
-			// 	process.env.TOKEN_KEY as string
-			// ) as Payload;
+			const decodedToken = jwt.verify(
+				token,
+				process.env.TOKEN_KEY as string
+			) as Payload;
 
-			const users = await prisma.user.findMany({});
+			const user = await prisma.user.findUniqueOrThrow({
+				where: { id: decodedToken.user_id }
+			});
 
-			res.status(200).json(users);
+			res.status(200).json(user);
 			return;
 		}
 
