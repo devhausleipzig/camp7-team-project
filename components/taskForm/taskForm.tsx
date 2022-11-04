@@ -1,5 +1,6 @@
 import { Task, User } from "@prisma/client";
-import { useState } from "react";
+import { useState, ChangeEvent, Dispatch, SetStateAction } from "react";
+import task from "../../pages/api/task";
 import {
 	CustomEmojiPicker,
 	EmojiUser,
@@ -7,55 +8,61 @@ import {
 
 export type TaskWithoutId = Omit<
 	Task,
-	"id" | "createdAt" | "updatedAt" | "creatorId"
-> & { assignedTo: User[] };
+	"id" | "createdAt" | "updatedAt" | "creatorId" | "completed"
+> & { assignedTo: EmojiUser[] };
 
 type TaskFormProps = {
-	onSubmit: (formData: TaskFormData) => Promise<void>;
+	onSubmit: (task: TaskWithoutId) => void;
 	buttonText: string;
+	updateField: (
+		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+		field: keyof Task
+	) => void;
 	userChoices: EmojiUser[];
+	task: TaskWithoutId;
+	setTask: Dispatch<SetStateAction<TaskWithoutId>>;
+	assignedUsers: EmojiUser[];
+	setAssignedUsers: Dispatch<SetStateAction<EmojiUser[]>>;
 };
 
-export type TaskFormData = {
-	title: string;
-	points: number;
-	endTime: string;
-	endDate: string;
-	note: string;
-	assignedTo?: EmojiUser[];
-};
+// export type TaskFormData = {
+// 	title: string;
+// 	points: number;
+// 	endTime: string;
+// 	endDate: string;
+// 	note: string;
+// 	assignedTo?: EmojiUser[];
+// };
 
-export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
-	const [assignedUsers, setAssignedUsers] = useState<EmojiUser[]>([]);
-
+export function TaskForm({
+	onSubmit,
+	buttonText,
+	updateField,
+	userChoices,
+	task,
+	setTask,
+	assignedUsers,
+	setAssignedUsers,
+}: TaskFormProps) {
 	return (
 		<div className="flex flex-col text-custom_darkblue font-bold items-center justify-center">
 			<form
 				onSubmit={(event) => {
-					// prevent default behavior of browser for a form submission event
 					event.preventDefault();
-
-					// get data from the form html element
-					const formData = new FormData(event.target as HTMLFormElement);
-					const formDataObj = Object.fromEntries(
-						formData.entries()
-					) as unknown as TaskFormData;
-
-					// reset form input fields
-					const formElement = event.target as HTMLFormElement;
-					formElement.reset();
-					setAssignedUsers([]);
-
-					// manually add data from custom input component to form data
-					formDataObj["assignedTo"] = assignedUsers;
-					console.log(formDataObj);
-					onSubmit(formDataObj);
+					onSubmit({
+						...task,
+						assignedTo: assignedUsers,
+					});
 				}}
 				className="flex flex-col gap-2 max-w-4xl mx-auto"
 			>
 				<label htmlFor="title">Task</label>
 				<input
 					className="border border-neutral-50 border-b-custom_darkblue  text-black"
+					value={task.title}
+					onChange={(event) => {
+						updateField(event, "title");
+					}}
 					type="text"
 					name="title"
 					placeholder="Input Task Name Here"
@@ -69,6 +76,10 @@ export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
 				<label htmlFor="points">Points</label>
 				<input
 					className="border text-black border-neutral-50 border-b-custom_darkblue"
+					value={task.points}
+					onChange={(event) => {
+						updateField(event, "points");
+					}}
 					type="number"
 					name="points"
 					placeholder="enter a number here"
@@ -78,6 +89,10 @@ export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
 						<label htmlFor="time">End Time</label>
 						<input
 							className="border text-black border-neutral-50 border-b-custom_darkblue"
+							value={task.endTime}
+							onChange={(event) => {
+								updateField(event, "endTime");
+							}}
 							type="time"
 							name="endTime"
 							placeholder="enter a number here"
@@ -87,6 +102,10 @@ export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
 						<label htmlFor="date">End Date</label>
 						<input
 							className="border text-black border-neutral-50 border-b-custom_darkblue"
+							value={task.endDate}
+							onChange={(event) => {
+								updateField(event, "endDate");
+							}}
 							type="date"
 							name="endDate"
 							placeholder="enter a number here"
@@ -97,6 +116,10 @@ export function TaskForm({ onSubmit, buttonText, userChoices }: TaskFormProps) {
 				<textarea
 					className="border text-black border-neutral-50 border-b-custom_darkblue"
 					rows={2}
+					value={task.note}
+					onChange={(event) => {
+						updateField(event, "note");
+					}}
 					name="note"
 					placeholder="Input note here..."
 				></textarea>
